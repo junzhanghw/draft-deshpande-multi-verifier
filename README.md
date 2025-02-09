@@ -1,1 +1,1 @@
-# draft-deshpande-multi-verifier
+# draft-deshpande-rats-multi-verifier
