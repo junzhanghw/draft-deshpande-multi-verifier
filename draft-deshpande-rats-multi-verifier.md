@@ -93,8 +93,8 @@ Following figure shows the block diagram of a Hierarchical Pattern
                   +---------------+  Composite Evidence |          |        
                   |               +--------------------->          |  Evidence 2   +-----------+ 
                   |  Attester     |                     | Lead     +-------------->+           | 
-                  |               |  Composite          | Verifier |               |           | 
-                  |               <---------------------+          |               | Verifier 2| 
+                  |   or          |  Composite          | Verifier |               |           | 
+                  |  RP           |<--------------------+          |               | Verifier 2| 
                   +---------------+  Attestation Result |          +<--------------+           | 
                                        (AR)             |          |   AR 2        |           | 
                                                         |          |               +-----+-----+ 
@@ -132,15 +132,19 @@ Lead Verifier is the central entity in communication with the Attester. It recei
 
 The overall Verdict may be dependent on the Appraisal Policy of the Lead Verifier.
 
+In certain topologies, it is possible that only the Composite Evidence is Signed to provide the overall integrity, while the individual sub-Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence produce an Attestation Result first, stash the sub-Attester Evidence (example Evidence 1) as unprocessed Evidence, sign the AR and send it to it Verifier (example Verifier 1).
+
 ### Verifier for sub-Attester
 
 The role of a sub-Attester Verifier is to receive sub-Attester Evidence from the lead Verifier and produce Attestation Results to the Lead Verifier.
 
 ### Trust Relationships
 
-It is important that the individual sub-Attester Attestation Results needs to have security to prevent any man in the middle attacks. Hence it is important that each sub-Attester Attestation Results be signed by the individual Verifiers.
+It is important that the individual sub-Attester Attestation Results needs to have security to prevent any man in the middle attacks. Hence it is important that each sub-Attester Attestation Results MUST be signed by the individual Verifiers.
 
-The Trust Anchors for the sub-Attester Verifiers MUST be present in the Lead Verifier Database. Each individual sub-Attester Attestation Results are signed by sub-Attester Verifier. The Lead Verifier will verify the signature on the sub-Attester Attestation Results and once Verified, appends each results to the overall AR. Once all sub-Attester Appraisal process is complete, the overall Attestation Results is produced which is signed by the Lead Verifier.
+The Trust Anchors for the sub-Attester Verifiers MUST be present in the Lead Verifier Database. The Lead Verifier MUST verify the signature on the sub-Attester Attestation Results prior to processing it.
+
+Once all sub-Attester Appraisal process is complete, the overall Attestation Results are produced. The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
 
 In a particular deployment scenario it is possible that the received sub-Attester Results are just appended and the entire envelope signed by the Lead Verifier. A Relying Party may then choose to verify individual Verifier results, based on its Appraisal Policy for Attestation Results.
 
@@ -158,8 +162,8 @@ The following figure depicts Cascaded Pattern
         |        +-------------------->+           +--------->+           +------------------------>+            |
         |        |     (CE)            |           |Partial AR|           |     Partial AR          |            |
         |Attester|                     | Verifier 1|          | Verifier 2|                         | Verifier N |
-        |        |  Composite          |           |          |           |                         |            |
-        |        +<--------------------+           +<---------+           +<------------------------+            |
+        |  or    |  Composite          |           |          |           |                         |            |
+        | RP     +<--------------------+           +<---------+           +<------------------------+            |
         +--------+ Attestation Results |           |  (CAR)   |           |      (CAR)              |            |
                       (CAR)            |           |          |           |                         |            |
                                        +-----------+          +-----------+                         +------------+
@@ -170,10 +174,11 @@ In this topological pattern, the Attestation Verification happens in sequence. V
 Attester may send the Composite Evidence(CE) to any of the Verifier. The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the sub-Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
 it forwards the Composite Evidence and partial Attestation Results to the subsequent Verifier.
 
-The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the sub-Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then  simply passes the Combined Attestation Results from where it received its Combined Evidence. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model)
+The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the sub-Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the Combined Attestation Results(CAR) from where it received its Combined Evidence. Alternatively, it may also modify the CAR based on the inspection of received CAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new CAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model).
 
-As shown in the picture, the partial results goes all the way to the end Verifier
-The End Verifier combines the results, and the rest of the Verifiers just becomes the pass through.
+As shown in the picture, the partial results and Combined Evidence is transmitted to a chain of Verifier, till the Appraisal is complete.
+The Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Combined Attestation Results to the Verifier from which it receives Combined Evidence.
+
 
 ## Trust Relationships
 
