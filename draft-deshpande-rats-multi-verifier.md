@@ -1,7 +1,7 @@
 ---
 title: Remote Attestation MultiVerifier
 abbrev: RATS MultiVerifier
-docname: draft-deshpande-rats-multi-verifier
+docname: draft-deshpande-rats-multi-verifier-latest
 date: {DATE}
 category: info
 ipr: trust200902
@@ -37,6 +37,7 @@ contributor:
  -  name: Thomas Fossati
     organization: Linaro
     email: Thomas.Fossati@linaro.org
+
  -  name: Henk Birkholtz
     organization: Fraunhofer SIT
     email:  henk.birkholz@sit.fraunhofer.de
@@ -59,7 +60,7 @@ IETF RATS Architecture, defines the key role of a Verifier.  In a complex system
 A Verifier plays a Central Role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
 Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attesters, also known as Layered Attesters or Composite Devices(Sections 3.2 and 3.3 of [RFC9334]) generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU. Throughout this document we use the term sub-Attester to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
 
-A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of sub-Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results. 
+A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of sub-Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results.
 
 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
@@ -73,7 +74,7 @@ The reader is assumed to be familiar with the terms defined in {{RATS-ARCH}}.
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
 
-A composite Attester as per RATS definition has multiple layers. Each layer requires a different set of Verifiers. Hence multi Verifiers work in tandem to appraise a composite Attester. 
+A composite Attester as per RATS definition has multiple layers. Each layer requires a different set of Verifiers. Hence multi Verifiers work in tandem to appraise a composite Attester.
 
 ## Hierarchical Pattern
 {: #sec-lead-verifier }
@@ -81,29 +82,29 @@ A composite Attester as per RATS definition has multiple layers. Each layer requ
 Following figure shows the block diagram of a Hierarchical Pattern
 
 
-                                                        +----------+                             
-                                                        |          |               +-----------+ 
-                                                        |          |               |           | 
-                                                        |          |  Evidence 1   |           | 
-                                                        |          +-------------->+ Verifier 1| 
-                                                        |          |               |           | 
-                                                        |          +<--------------+           | 
+                                                        +----------+
+                                                        |          |               +-----------+
+                                                        |          |               |           |
+                                                        |          |  Evidence 1   |           |
+                                                        |          +-------------->+ Verifier 1|
+                                                        |          |               |           |
+                                                        |          +<--------------+           |
                                                         |          |    AR 1       +-----------+
-                                                        |          |                                 
-                  +---------------+  Composite Evidence |          |        
-                  |               +--------------------->          |  Evidence 2   +-----------+ 
-                  |  Attester     |                     | Lead     +-------------->+           | 
-                  |   or          |  Composite          | Verifier |               |           | 
-                  |  RP           |<--------------------+          |               | Verifier 2| 
-                  +---------------+  Attestation Result |          +<--------------+           | 
-                                       (AR)             |          |   AR 2        |           | 
-                                                        |          |               +-----+-----+ 
-                                                        |          |                     |       
-                                                        |          |                     |       
-                                                        |          |                     .       
-                                                        |          |                     |       
-                                                        |          |                     |       
-                                                        |          |                     |       
+                                                        |          |
+                  +---------------+  Composite Evidence |          |
+                  |               +--------------------->          |  Evidence 2   +-----------+
+                  |  Attester     |                     | Lead     +-------------->+           |
+                  |   or          |  Composite          | Verifier |               |           |
+                  |  RP           |<--------------------+          |               | Verifier 2|
+                  +---------------+  Attestation Result |          +<--------------+           |
+                                       (AR)             |          |   AR 2        |           |
+                                                        |          |               +-----+-----+
+                                                        |          |                     |
+                                                        |          |                     |
+                                                        |          |                     .
+                                                        |          |                     |
+                                                        |          |                     |
+                                                        |          |                     |
                                                         |          |   Evidence N   +----+------+
                                                         |          +--------------->+           |
                                                         |          |                |           |
@@ -111,7 +112,7 @@ Following figure shows the block diagram of a Hierarchical Pattern
                                                         |          |   AR N         |           |
                                                         |          |                |           |
                                                         |          |                +-----------+
-                                                        +----------+                             
+                                                        +----------+
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -126,7 +127,7 @@ Lead Verifier is the central entity in communication with the Attester. It recei
 
 * Lead Verifier delegates each sub-Attester Evidence to its own Verifier and receives sub-Attester Attestation Results after successful Appraisal of Evidence.
 
-* Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a combined Attestation Results. 
+* Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a combined Attestation Results.
 
 * Lead Verifier combines the Results from each Verifier and conveys the combined Attestation Results to the Attester
 (in Passport model) or to the Relying Party (in background check model)
@@ -154,10 +155,10 @@ In a particular deployment scenario it is possible that the received sub-Atteste
 ## Cascaded Pattern
 {: #sec-verifier-cascade }
 
-The following figure depicts Cascaded Pattern 
+The following figure depicts Cascaded Pattern
 
-                                                                                                          
-                                                                                                          
+
+
                                        +-----------+          +-----------+                         +------------+
         +--------+                     |           |          |           |                         |            |
         |        |  Composite Evidence |           |  (CE)    |           |       (CE)              |            |
@@ -169,8 +170,8 @@ The following figure depicts Cascaded Pattern
         +--------+ Attestation Results |           |  (CAR)   |           |      (CAR)              |            |
                       (CAR)            |           |          |           |                         |            |
                                        +-----------+          +-----------+                         +------------+
-                                                                                                                  
-                                                                                                          
+
+
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
 
 Attester may send the Composite Evidence(CE) to any of the Verifier. The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the sub-Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
