@@ -190,6 +190,9 @@ In the cascaded pattern, the communicating Verifiers fully trust each other. Eac
 ### Relying Party and Verifiers
 In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP must have a trust root for the root CA certificate, whose leaf certifcate key is used to sign the Attestation Results.
 
+## Hybrid Pattern
+
+In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. For example Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
 
 # Security Considerations
 
