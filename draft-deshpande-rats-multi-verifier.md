@@ -76,12 +76,11 @@ The reader is assumed to be familiar with the terms defined in {{RATS-ARCH}}.
 
 A composite Attester as per RATS definition has multiple layers. Each layer requires a different set of Verifiers. Hence multi Verifiers work in tandem to appraise a composite Attester.
 
-## Hierarchical Pattern
-{: #sec-lead-verifier }
+## Hierarchical Pattern {: #sec-lead-verifier }
 
-Following figure shows the block diagram of a Hierarchical Pattern
+Figure below shows the block diagram of a Hierarchical Pattern.
 
-
+<artwork>
                                                         +----------+
                                                         |          |               +-----------+
                                                         |          |               |           |
@@ -113,6 +112,7 @@ Following figure shows the block diagram of a Hierarchical Pattern
                                                         |          |                |           |
                                                         |          |                +-----------+
                                                         +----------+
+</artwork>
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -152,13 +152,11 @@ In a particular deployment scenario it is possible that the received sub-Atteste
 
 
 
-## Cascaded Pattern
-{: #sec-verifier-cascade }
+## Cascaded Pattern {: #sec-verifier-cascade }
 
-The following figure depicts Cascaded Pattern
+Figure below shows the block diagram of a Cascaded Pattern.
 
-
-
+<artwork>
                                        +-----------+          +-----------+                         +------------+
         +--------+                     |           |          |           |                         |            |
         |        |  Composite Evidence |           |  (CE)    |           |       (CE)              |            |
@@ -170,6 +168,7 @@ The following figure depicts Cascaded Pattern
         +--------+ Attestation Results |           |  (CAR)   |           |      (CAR)              |            |
                       (CAR)            |           |          |           |                         |            |
                                        +-----------+          +-----------+                         +------------+
+</artwork>
 
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
