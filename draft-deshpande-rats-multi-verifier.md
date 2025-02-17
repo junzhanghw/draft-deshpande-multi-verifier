@@ -42,10 +42,6 @@ contributor:
     organization: Fraunhofer SIT
     email:  henk.birkholz@sit.fraunhofer.de
 
-normative:
-
-  CoRIM: I-D.ietf-rats-corim
-
 informative:
   RATS-ARCH: RFC9334
 
@@ -80,39 +76,37 @@ A composite Attester as per RATS definition has multiple layers. Each layer requ
 
 Figure below shows the block diagram of a Hierarchical Pattern.
 
-<artwork>
-                                                        +----------+
-                                                        |          |               +-----------+
-                                                        |          |               |           |
-                                                        |          |  Evidence 1   |           |
-                                                        |          +-------------->+ Verifier 1|
-                                                        |          |               |           |
-                                                        |          +<--------------+           |
-                                                        |          |    AR 1       +-----------+
-                                                        |          |
-                  +---------------+  Composite Evidence |          |
-                  |               +--------------------->          |  Evidence 2   +-----------+
-                  |  Attester     |                     | Lead     +-------------->+           |
-                  |   or          |  Composite          | Verifier |               |           |
-                  |  RP           |<--------------------+          |               | Verifier 2|
-                  +---------------+  Attestation Result |          +<--------------+           |
-                                       (AR)             |          |   AR 2        |           |
-                                                        |          |               +-----+-----+
-                                                        |          |                     |
-                                                        |          |                     |
-                                                        |          |                     .
-                                                        |          |                     |
-                                                        |          |                     |
-                                                        |          |                     |
-                                                        |          |   Evidence N   +----+------+
-                                                        |          +--------------->+           |
-                                                        |          |                |           |
-                                                        |          +<---------------+ Verifier N|
-                                                        |          |   AR N         |           |
-                                                        |          |                |           |
-                                                        |          |                +-----------+
-                                                        +----------+
-</artwork>
+                                                     +----------+
+                                                     |          |               +-----------+
+                                                     |          |               |           |
+                                                     |          |  Evidence 1   |           |
+                                                     |          +-------------->+ Verifier 1|
+                                                     |          |               |           |
+                                                     |          +<--------------+           |
+                                                     |          |    AR 1       +-----------+
+                                                     |          |
+               +---------------+  Composite Evidence |          |
+               |               +--------------------->          |  Evidence 2   +-----------+
+               |  Attester     |                     | Lead     +-------------->+           |
+               |   or          |  Composite          | Verifier |               |           |
+               |  RP           |<--------------------+          |               | Verifier 2|
+               +---------------+  Attestation Result |          +<--------------+           |
+                                    (AR)             |          |   AR 2        |           |
+                                                     |          |               +-----+-----+
+                                                     |          |                     |
+                                                     |          |                     |
+                                                     |          |                     .
+                                                     |          |                     |
+                                                     |          |                     |
+                                                     |          |                     |
+                                                     |          |   Evidence N   +----+------+
+                                                     |          +--------------->+           |
+                                                     |          |                |           |
+                                                     |          +<---------------+ Verifier N|
+                                                     |          |   AR N         |           |
+                                                     |          |                |           |
+                                                     |          |                +-----------+
+                                                     +----------+
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -156,7 +150,6 @@ In a particular deployment scenario it is possible that the received sub-Atteste
 
 Figure below shows the block diagram of a Cascaded Pattern.
 
-<artwork>
                                        +-----------+          +-----------+                         +------------+
         +--------+                     |           |          |           |                         |            |
         |        |  Composite Evidence |           |  (CE)    |           |       (CE)              |            |
@@ -168,7 +161,6 @@ Figure below shows the block diagram of a Cascaded Pattern.
         +--------+ Attestation Results |           |  (CAR)   |           |      (CAR)              |            |
                       (CAR)            |           |          |           |                         |            |
                                        +-----------+          +-----------+                         +------------+
-</artwork>
 
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
