@@ -57,10 +57,10 @@ IETF RATS Architecture, defines the key role of a Verifier.  In a complex system
 # Introduction
 
 A Verifier plays a Central Role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
-
 Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attesters, also known as Layered Attesters or Composite Devices(Sections 3.2 and 3.3 of [RFC9334]) generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU. Throughout this document we use the term sub-Attester to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
 
 A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of sub-Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results. 
+
 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
 
@@ -123,6 +123,7 @@ Lead Verifier is the central entity in communication with the Attester. It recei
 
 * Lead Verifier has the knowledge about the overall structure of the Composite Evidence so it decodes the Evidence to extract the sub-Attester Evidence. This may lead to "N" sub-Evidence, one for each sub-Attester.
 
+
 * Lead Verifier delegates each sub-Attester Evidence to its own Verifier and receives sub-Attester Attestation Results after successful Appraisal of Evidence.
 
 * Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a combined Attestation Results. 
@@ -143,6 +144,7 @@ It is important that the individual sub-Attester Attestation Results needs to ha
 The Trust Anchors for the sub-Attester Verifiers MUST be present in the Lead Verifier Database. Each individual sub-Attester Attestation Results are signed by sub-Attester Verifier. The Lead Verifier will verify the signature on the sub-Attester Attestation Results and once Verified, appends each results to the overall AR. Once all sub-Attester Appraisal process is complete, the overall Attestation Results is produced which is signed by the Lead Verifier.
 
 In a particular deployment scenario it is possible that the received sub-Attester Results are just appended and the entire envelope signed by the Lead Verifier. A Relying Party may then choose to verify individual Verifier results, based on its Appraisal Policy for Attestation Results.
+
 
 
 ## Cascaded Pattern
@@ -182,6 +184,7 @@ In the cascaded pattern, the communicating Verifiers fully trust each other. Eac
 
 ### Relying Party and Verifiers
 In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP must have a trust root for the root CA certificate, whose leaf certifcate key is used to sign the Attestation Results.
+
 
 # Security Considerations
 
