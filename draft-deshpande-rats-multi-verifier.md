@@ -57,10 +57,10 @@ IETF RATS Architecture, defines the key role of a Verifier.  In a complex system
 # Introduction
 
 A Verifier plays a Central Role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
+Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attesters, also known as Layered Attesters or Composite Devices(Sections 3.2 and 3.3 of [RFC9334]) generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU. Throughout this document we use the term sub-Attester to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
 
-Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. A single Attester may be composition of many sub_Attesters. Composite Attesters, also known as Layered Attesters or Composite Devices(Sections 3.2 and 3.3 of [RFC9334]) generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU.
+A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of sub-Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results. 
 
-A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of Attester. Given the range of sub_Attesters in a Composite Attester, it is possible that a single Verifier may not have all the necessary information to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results. 
 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
 
@@ -121,7 +121,8 @@ In this topological pattern, there is an Entity known as Lead Verifier.
 
 Lead Verifier is the central entity in communication with the Attester. It receives Attestation Evidence from a Composite Attester. If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature. If signature verification fails, the Verification is terminated. Otherwise it performs the following steps.
 
-* Lead Verifier has the knowledge about the the sub_Attester composition and decodes the Evidence to extract the sub_Attester Evidence. This may lead to "N" sub-Evidence, one for each sub-Attester.
+* Lead Verifier has the knowledge about the overall structure of the Composite Evidence so it decodes the Evidence to extract the sub-Attester Evidence. This may lead to "N" sub-Evidence, one for each sub-Attester.
+
 
 * Lead Verifier delegates each sub-Attester Evidence to its own Verifier and receives sub-Attester Attestation Results after successful Appraisal of Evidence.
 
@@ -138,11 +139,12 @@ The role of a sub-Attester Verifier is to receive sub-Attester Evidence from the
 
 ### Trust Relationships
 
-It is important that the individual sub-Attester Attestation Results needs to have security to prevent any man in the middle attacks. Hence it is important that each Sub-Attester Attestation Results be signed by the individual Verifiers.
+It is important that the individual sub-Attester Attestation Results needs to have security to prevent any man in the middle attacks. Hence it is important that each sub-Attester Attestation Results be signed by the individual Verifiers.
 
 The Trust Anchors for the sub-Attester Verifiers MUST be present in the Lead Verifier Database. Each individual sub-Attester Attestation Results are signed by sub-Attester Verifier. The Lead Verifier will verify the signature on the sub-Attester Attestation Results and once Verified, appends each results to the overall AR. Once all sub-Attester Appraisal process is complete, the overall Attestation Results is produced which is signed by the Lead Verifier.
 
-In a particulat deployment scenario it is possible that the received sub-Attester Results are just appended and the entire envelope signed by the Lead Verifier. A Relying Party may then choose to verify individual Verifier results, based on its Appraisal Policy for Attestation Results.
+In a particular deployment scenario it is possible that the received sub-Attester Results are just appended and the entire envelope signed by the Lead Verifier. A Relying Party may then choose to verify individual Verifier results, based on its Appraisal Policy for Attestation Results.
+
 
 
 ## Cascaded Pattern
@@ -170,20 +172,19 @@ In this topological pattern, the Attestation Verification happens in sequence. V
 Attester may send the Composite Evidence(CE) to any of the Verifier. The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the sub-Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
 it forwards the Composite Evidence and partial Attestation Results to the subsequent Verifier.
 
-The process is repeated, untill the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the sub-Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then  simplye passes the Combined Attestation Results from where it received its Combined Evidence. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model)
+The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the sub-Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then  simply passes the Combined Attestation Results from where it received its Combined Evidence. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model)
 
-[TBD] There are two ways the return paths can be handled.
+As shown in the picture, the partial results goes all the way to the end Verifier
+The End Verifier combines the results, and the rest of the Verifiers just becomes the pass through.
 
-Option - 1:  As shown in the picture, the partial results goes all the way to the end Verifier
-The End Verifier combines the results, and the rest of the Verifiers just becomes the pass through
+## Trust Relationships
 
-Option -2:  Attestation Results are shared in the return path. Each Verifier adds its own Attestation Results
-to the combination and passes it to the Verifier from where it received its Evidence. In the option 2,
-there is no way for the individual Verifiers to understand when the process needs terminated..?
-Extra information about remaining Evidence Appraisal needs to be passed..?
+### Verifiers
+In the cascaded pattern, the communicating Verifiers fully trust each other. Each Verifier has the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the partial Attestation Results received by a Verifier or a Combined Attestation Results (CAR) which it receives in the return path.
 
-### Trust Relationships
-The Trust Relationship varies based on the above Options
+### Relying Party and Verifiers
+In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP must have a trust root for the root CA certificate, whose leaf certifcate key is used to sign the Attestation Results.
+
 
 # Security Considerations
 
