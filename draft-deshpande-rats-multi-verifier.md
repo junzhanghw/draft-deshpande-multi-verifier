@@ -189,6 +189,7 @@ In a particular deployment, there is a possibility that the two models presented
 
 # Freshness
 The Verifier needs to ensure that the claims included in the Evidence reflect the latest state of the Attester. As per RATS Architecture, the recommended freshness is ascertained using either Synchronised Clocks, Epoch IDs, or nonce, embedded in the Evidence.
+
 In the case of Hierarchical Pattern, the Verification of Freshness should be checked by the Lead Verifier. 
  
 In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
