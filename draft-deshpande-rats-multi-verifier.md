@@ -114,7 +114,8 @@ The following sub-sections describe the various roles that exist in this pattern
 
 In this topological pattern, there is an Entity known as Lead Verifier.
 
-Lead Verifier is the central entity in communication with the Attester. It receives Attestation Evidence from a Composite Attester. If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature. If signature verification fails, the Verification is terminated. Otherwise it performs the following steps.
+Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model). 
+It receives Attestation Evidence from a Composite Attester. If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature. If signature verification fails, the Verification is terminated. Otherwise it performs the following steps.
 
 * Lead Verifier has the knowledge about the overall structure of the Composite Evidence so it decodes the Evidence to extract the sub-Attester Evidence. This may lead to "N" sub-Evidence, one for each sub-Attester.
 
@@ -128,7 +129,7 @@ Lead Verifier is the central entity in communication with the Attester. It recei
 
 The overall Verdict may be dependent on the Appraisal Policy of the Lead Verifier.
 
-In certain topologies, it is possible that only the Composite Evidence is Signed to provide the overall integrity, while the individual sub-Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence produce an Attestation Result first, stash the sub-Attester Evidence (example Evidence 1) as unprocessed Evidence, sign the AR and send it to it Verifier (example Verifier 1).
+In certain topologies, it is possible that only the Composite Evidence is Signed to provide the overall integrity, while the individual sub-Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence produce an Attestation Result first, stash the sub-Attester Evidence (example Evidence 1) as unprocessed Evidence, sign the AR and send it to its Verifier (example Verifier 1).
 
 ### Verifier for sub-Attester
 
@@ -165,7 +166,7 @@ Figure below shows the block diagram of a Cascaded Pattern.
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
 
-Attester may send the Composite Evidence(CE) to any of the Verifier. The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the sub-Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
+Attester may send the Composite Evidence(CE) to any of the Verifier (directly in the passport model, or indirectly via the Relying Party in the background-check model). The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the sub-Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
 it forwards the Composite Evidence and partial Attestation Results to the subsequent Verifier.
 
 The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the sub-Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the Combined Attestation Results(CAR) from where it received its Combined Evidence. Alternatively, it may also modify the CAR based on the inspection of received CAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new CAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model).
@@ -186,6 +187,11 @@ In the cascaded pattern, the RP may communicate with any Verifier and thus recei
 
 In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. For example Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
 
+# Freshness
+The Verifier needs to ensure that the claims included in the Evidence reflect the latest state of the Attester. As per RATS Architecture, the recommended freshness is ascertained using either Synchronised Clocks, Epoch IDs, or nonce, embedded in the Evidence.
+In the case of Hierarchical Pattern, the Verification of Freshness should be checked by the Lead Verifier. 
+ 
+In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
 # Security Considerations
 
 <cref>TODO</cref>
