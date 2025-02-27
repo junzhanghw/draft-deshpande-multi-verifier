@@ -80,6 +80,7 @@ Composite Evidence: :Evidence produced by a Composite Attester.
 
 Lead Verifier: :A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
 
+Aggregated Attestation Results: : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester. 
 
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
@@ -102,10 +103,10 @@ Figure below shows the block diagram of a Hierarchical Pattern.
                +---------------+  Composite Evidence |          |
                |               +--------------------->          |  Evidence 2   +-----------+
                |  Attester     |                     | Lead     +-------------->+           |
-               |   or          |  Composite          | Verifier |               |           |
+               |   or          |  Aggregated         | Verifier |               |           |
                |  RP           |<--------------------+          |               | Verifier 2|
                +---------------+  Attestation Result |          +<--------------+           |
-                                    (AR)             |          |   AR 2        |           |
+                                    (AAR)            |          |   AR 2        |           |
                                                      |          |               +-----+-----+
                                                      |          |                     |
                                                      |          |                     |
@@ -135,9 +136,9 @@ It receives Attestation Evidence from a Composite Attester. If the Composite Att
 
 * Lead Verifier delegates each Component Attester Evidence to its own Verifier and receives Component Attester Attestation Results after successful Appraisal of Evidence.
 
-* Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a combined Attestation Results.
+* Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a Aggregated Attestation Results.
 
-* Lead Verifier combines the Results from each Verifier and conveys the combined Attestation Results to the Attester
+* Lead Verifier combines the Results from each Verifier and conveys the Aggregated Attestation Results to the Attester
 (in Passport model) or to the Relying Party (in background check model)
 
 The overall Verdict may be dependent on the Appraisal Policy of the Lead Verifier.
@@ -170,10 +171,10 @@ Figure below shows the block diagram of a Cascaded Pattern.
         |        +-------------------->+           +--------->+           +------------------------>+            |
         |        |     (CE)            |           |Partial AR|           |     Partial AR          |            |
         |Attester|                     | Verifier 1|          | Verifier 2|                         | Verifier N |
-        |  or    |  Composite          |           |          |           |                         |            |
+        |  or    |  Aggregated         |           |          |           |                         |            |
         | RP     +<--------------------+           +<---------+           +<------------------------+            |
-        +--------+ Attestation Results |           |  (CAR)   |           |      (CAR)              |            |
-                      (CAR)            |           |          |           |                         |            |
+        +--------+ Attestation Results |           |  (AAR)   |           |      (AAR)              |            |
+                      (AAR)            |           |          |           |                         |            |
                                        +-----------+          +-----------+                         +------------+
 
 
@@ -182,16 +183,16 @@ In this topological pattern, the Attestation Verification happens in sequence. V
 Attester may send the Composite Evidence(CE) to any of the Verifier (directly in the passport model, or indirectly via the Relying Party in the background-check model). The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the Component Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete,
 it forwards the Composite Evidence and partial Attestation Results to the subsequent Verifier.
 
-The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the Component Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the Combined Attestation Results(CAR) from where it received its Combined Evidence. Alternatively, it may also modify the CAR based on the inspection of received CAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new CAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Combined Attestation Results are signed and the combined Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model).
+The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the Component Attester Evidence and returns the Complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the Aggregated Attestation Results(AAR) from where it received its Combined Evidence. Alternatively, it may also modify the AAR based on the inspection of received AAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new AAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Aggregated Attestation Results are signed and the Aggregated Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model).
 
 As shown in the picture, the partial results and Combined Evidence is transmitted to a chain of Verifier, till the Appraisal is complete.
-The Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Combined Attestation Results to the Verifier from which it receives Combined Evidence.
+The Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Aggregated Attestation Results to the Verifier from which it receives Combined Evidence.
 
 
 ## Trust Relationships
 
 ### Verifiers
-In the cascaded pattern, the communicating Verifiers fully trust each other. Each Verifier has the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the partial Attestation Results received by a Verifier or a Combined Attestation Results (CAR) which it receives in the return path.
+In the cascaded pattern, the communicating Verifiers fully trust each other. Each Verifier has the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the partial Attestation Results received by a Verifier or a Aggregated Attestation Results (AAR) which it receives in the return path.
 
 ### Relying Party and Verifiers
 In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP must have a trust root for the root CA certificate, whose leaf certifcate key is used to sign the Attestation Results.
