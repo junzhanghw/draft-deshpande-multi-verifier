@@ -33,14 +33,16 @@ author:
   org: Huawei Technologies France S.A.S.U.
   email:  junzhang1@huawei.com
 
+-  name: Henk Birkholtz
+    organization: Fraunhofer SIT
+    email:  henk.birkholz@sit.fraunhofer.de
+
 contributor:
  -  name: Thomas Fossati
     organization: Linaro
     email: Thomas.Fossati@linaro.org
 
- -  name: Henk Birkholtz
-    organization: Fraunhofer SIT
-    email:  henk.birkholz@sit.fraunhofer.de
+
 
 informative:
   RATS-ARCH: RFC9334
