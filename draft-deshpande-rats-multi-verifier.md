@@ -72,7 +72,7 @@ Specifically this document heavily uses the terms Layered Attester {{Section 3.2
 Glossary {#sec-glossary}
 This document uses the following terms:
 
-{: vspace="0"} Composite Attester: :A Composite Attester is either a Composite Device or a Layered Attester or any composition involving a combination of one or more Composite Devices or Layered Attesters. 
+{: vspace="0"} Composite Attester: :A Composite Attester is either a Composite Device or a Layered Attester or any composition involving a combination of one or more Composite Devices or Layered Attesters.
 
 Component Attester: :A Component Attester is a single Attester of a Composite Attester. For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Verifier.
 
@@ -80,7 +80,7 @@ Composite Evidence: :Evidence produced by a Composite Attester.
 
 Lead Verifier: :A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
 
-Aggregated Attestation Results: : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester. 
+Aggregated Attestation Results: : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
