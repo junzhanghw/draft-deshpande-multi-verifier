@@ -154,7 +154,7 @@ It receives Attestation Evidence from a Composite Attester. If the Composite Att
 
 * Once the Lead Verifier receives Attestation Results from all the Verifiers, it combines the results from each Verifier to construct a Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
 
-* Lead Verifier conveys the AAR to the Attester (in Passport model) or to the Relying Party (in background check model). 
+* Lead Verifier conveys the AAR to the Attester (in Passport model) or to the Relying Party (in background check model).
 
 The overall verdict may be dependent on the Appraisal Policy of the Lead Verifier.
 
