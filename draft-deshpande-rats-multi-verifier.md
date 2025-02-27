@@ -33,7 +33,7 @@ author:
   org: Huawei Technologies France S.A.S.U.
   email:  junzhang1@huawei.com
 
-- 
+-
   name: Henk Birkholtz
   org: Fraunhofer SIT
   email:  henk.birkholz@sit.fraunhofer.de
@@ -46,7 +46,8 @@ contributor:
 
 
 informative:
-  RATS-ARCH: RFC9334
+  RFC9334: rats-arch
+
 
 --- abstract
 
@@ -65,23 +66,37 @@ A Verifier needs Reference Values and Endorsements from the supply chain actors 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
 
 # Conventions and Definitions
+
 {::boilerplate bcp14}
+
 This document uses terms and concepts defined by the RATS architecture. For a complete glossary, see {{Section 4 of -rats-arch}}.
 
 Specifically this document heavily uses the terms Layered Attester {{Section 3.2 of -rats-arch}} and Composite Device {{Section 3.3 of -rats-arch}}
 
-Glossary {#sec-glossary}
+## Glossary
+{: #sec-glossary }
+
 This document uses the following terms:
 
-{: vspace="0"} Composite Attester: :A Composite Attester is either a Composite Device or a Layered Attester or any composition involving a combination of one or more Composite Devices or Layered Attesters.
+Composite Attester:
 
-Component Attester: :A Component Attester is a single Attester of a Composite Attester. For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Verifier.
+: A Composite Attester is either a Composite Device or a Layered Attester or any composition involving a combination of one or more Composite Devices or Layered Attesters.
 
-Composite Evidence: :Evidence produced by a Composite Attester.
+Component Attester:
 
-Lead Verifier: :A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
+: A Component Attester is a single Attester of a Composite Attester. For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Verifier.
 
-Aggregated Attestation Results: : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
+Composite Evidence:
+
+: Evidence produced by a Composite Attester.
+
+Lead Verifier:
+
+: A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
+
+Aggregated Attestation Results:
+
+: An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
