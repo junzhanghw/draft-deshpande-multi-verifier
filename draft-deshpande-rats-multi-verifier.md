@@ -114,7 +114,7 @@ The following sub-sections describe the various roles that exist in this pattern
 
 In this topological pattern, there is an Entity known as Lead Verifier.
 
-Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model). 
+Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model).
 It receives Attestation Evidence from a Composite Attester. If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature. If signature verification fails, the Verification is terminated. Otherwise it performs the following steps.
 
 * Lead Verifier has the knowledge about the overall structure of the Composite Evidence so it decodes the Evidence to extract the sub-Attester Evidence. This may lead to "N" sub-Evidence, one for each sub-Attester.
@@ -189,8 +189,8 @@ In a particular deployment, there is a possibility that the two models presented
 
 # Freshness
 The Verifier needs to ensure that the claims included in the Evidence reflect the latest state of the Attester. As per RATS Architecture, the recommended freshness is ascertained using either Synchronised Clocks, Epoch IDs, or nonce, embedded in the Evidence.
-In the case of Hierarchical Pattern, the Verification of Freshness should be checked by the Lead Verifier. 
- 
+In the case of Hierarchical Pattern, the Verification of Freshness should be checked by the Lead Verifier.
+
 In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
 # Security Considerations
 
