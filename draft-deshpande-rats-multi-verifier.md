@@ -134,16 +134,15 @@ It receives Attestation Evidence from a Composite Attester. If the Composite Att
 
 * Lead Verifier has the knowledge about the overall structure of the Composite Evidence. It decodes the Composite Evidence to extract the Component Attester Evidence. This may lead to "N" Evidence, one for each Component Attester.
 
-* Lead Verifier delegates each Component Attester Evidence to its own Verifier and receives Component Attester Attestation Results after successful Appraisal of Evidence.
+* Lead Verifier delegates each Component Attester Evidence to their own Verifier and receives Component Attester Attestation Results after successful Appraisal of Evidence.
 
-* Once the Lead Verifier receives Attestation Results from all the Verifiers then it constructs a Aggregated Attestation Results.
+* Once the Lead Verifier receives Attestation Results from all the Verifiers, it combines the results from each Verifier to construct a Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
 
-* Lead Verifier combines the Results from each Verifier and conveys the Aggregated Attestation Results to the Attester
-(in Passport model) or to the Relying Party (in background check model)
+* Lead Verifier conveys the AAR to the Attester (in Passport model) or to the Relying Party (in background check model). 
 
-The overall Verdict may be dependent on the Appraisal Policy of the Lead Verifier.
+The overall verdict may be dependent on the Appraisal Policy of the Lead Verifier.
 
-In certain topologies, it is possible that only the Composite Evidence is Signed to provide the overall integrity, while the individual Component Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence produce an Attestation Result first, stash the Component Attester Evidence (example Evidence 1) as unprocessed Evidence, sign the AR and sends to its Verifier (example Verifier 1).
+In certain topologies, it is possible that only the Composite Evidence is signed to provide the overall integrity, while the individual Component Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence may wrap the Component Attester Evidence (example Evidence 1) in a signed Conceptual Message Wrapper (CMW), and send it to each Verifier (example Verifier 1).
 
 ### Verifier for Component Attester
 
@@ -151,15 +150,9 @@ The role of a Component Attester Verifier is to receive Component Attester Evide
 
 ### Trust Relationships
 
-It is important that the individual Component Attester Attestation Results needs to have security to prevent any man in the middle attacks. Hence it is important that each Component Attester Attestation Results MUST be signed by the individual Verifiers.
+In this topology the Lead Verifier is fully trusted by Component Attester Verifiers (example Verifier 1).
 
-The Trust Anchors for the Component Attester Verifiers MUST be present in the Lead Verifier Database. The Lead Verifier MUST verify the signature on the Component Attester Attestation Results prior to processing it.
-
-Once all Component Attester Appraisal process is complete, the overall Attestation Results are produced. The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
-
-In a particular deployment scenario it is possible that the received Component Attester Results are just appended and the entire envelope signed by the Lead Verifier. A Relying Party may then choose to verify individual Verifier results, based on its Appraisal Policy for Attestation Results.
-
-
+Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors for Verifier 1..N.
 
 ## Cascaded Pattern {: #sec-verifier-cascade }
 
@@ -188,13 +181,13 @@ As shown in the picture, the partial results and Combined Evidence is transmitte
 The Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Aggregated Attestation Results to the Verifier from which it receives Combined Evidence.
 
 
-## Trust Relationships
+### Trust Relationships
 
 ### Verifiers
 In the cascaded pattern, the communicating Verifiers fully trust each other. Each Verifier has the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the partial Attestation Results received by a Verifier or a Aggregated Attestation Results (AAR) which it receives in the return path.
 
 ### Relying Party and Verifiers
-In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP must have a trust root for the root CA certificate, whose leaf certifcate key is used to sign the Attestation Results.
+In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP fully trusts all the Verifiers.
 
 ## Hybrid Pattern
 
