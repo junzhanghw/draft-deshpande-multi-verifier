@@ -60,7 +60,7 @@ IETF RATS Architecture, defines the key role of a Verifier.  In a complex system
 A Verifier plays a Central Role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
 Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester {{sec-glossary}}, generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU. Throughout this document we use the term Component Attester {{sec-glossary}} to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
 
-A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of Component Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to work in tandem to conclude the appraisal and produce the Attestation Results.
+A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of Component Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to collaborate to conclude the appraisal and produce the Attestation Results.
 
 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
@@ -101,10 +101,9 @@ Aggregated Attestation Results:
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
 
-A composite Attester as per RATS definition has multiple layers. Each layer requires a different set of Verifiers. Hence multi Verifiers work in tandem to appraise a composite Attester.
+A Composite Attester has multiple Component Attesters. Each Attester requires a different set of Verifiers. Hence multiple Verifiers collaborate to appraise a Composite Attester.
 
 ## Hierarchical Pattern {#sec-lead-verifier}
-
 Figure below shows the block diagram of a Hierarchical Pattern.
 
 ~~~ aasvg
