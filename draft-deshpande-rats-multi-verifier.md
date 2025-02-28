@@ -103,41 +103,44 @@ Aggregated Attestation Results:
 
 A composite Attester as per RATS definition has multiple layers. Each layer requires a different set of Verifiers. Hence multi Verifiers work in tandem to appraise a composite Attester.
 
-## Hierarchical Pattern {: #sec-lead-verifier }
+## Hierarchical Pattern {#sec-lead-verifier}
 
 Figure below shows the block diagram of a Hierarchical Pattern.
 
-                                                     +----------+
-                                                     |          |               +-----------+
-                                                     |          |               |           |
-                                                     |          |  Evidence 1   |           |
-                                                     |          +-------------->+ Verifier 1|
-                                                     |          |               |           |
-                                                     |          +<--------------+           |
-                                                     |          |    AR 1       +-----------+
-                                                     |          |
-               +---------------+  Composite Evidence |          |
-               |               +--------------------->          |  Evidence 2   +-----------+
-               |  Attester     |                     | Lead     +-------------->+           |
-               |   or          |  Aggregated         | Verifier |               |           |
-               |  RP           |<--------------------+          |               | Verifier 2|
-               +---------------+  Attestation Result |          +<--------------+           |
-                                    (AAR)            |          |   AR 2        |           |
-                                                     |          |               +-----+-----+
-                                                     |          |                     |
-                                                     |          |                     |
-                                                     |          |                     .
-                                                     |          |                     |
-                                                     |          |                     |
-                                                     |          |                     |
-                                                     |          |   Evidence N   +----+------+
-                                                     |          +--------------->+           |
-                                                     |          |                |           |
-                                                     |          +<---------------+ Verifier N|
-                                                     |          |   AR N         |           |
-                                                     |          |                |           |
-                                                     |          |                +-----------+
-                                                     +----------+
+~~~ aasvg
+                                  +----------+
+                                  |          |             +-----------+
+                                  |          |             |           |
+                                  |          | Evidence 1  |           |
+                                  |          +------------>+ Verifier 1|
+                                  |          |             |           |
+                                  |          +<------------+           |
+                                  |          |   AR 1      +-----------+
+                                  |          |
++-----------+  Composite Evidence |          |
+|           +-------------------->|          | Evidence 2  +-----------+
+|  Attester |                     | Lead     +------------>+           |
+|   or      |  Aggregated         | Verifier |             |           |
+|  RP       |<--------------------+          |             | Verifier 2|
++-----------+  Attestation Result |          +<------------+           |
+                 (AAR)            |          |  AR 2       |           |
+                                  |          |             +-----+-----+
+                                  |          |                   |
+                                  |          |                   |
+                                  |          |                   .
+                                  |          |                   |
+                                  |          |                   |
+                                  |          |                   |
+                                  |          | Evidence N  +-----+-----+
+                                  |          +------------>+           |
+                                  |          |             |           |
+                                  |          +<------------+ Verifier N|
+                                  |          | AR N        |           |
+                                  |          |             |           |
+                                  |          |             +-----------+
+                                  +----------+
+~~~
+
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -174,17 +177,19 @@ Also, each of the Component Attester Verifier is fully trusted by the Lead Verif
 
 Figure below shows the block diagram of a Cascaded Pattern.
 
-                                       +-----------+          +-----------+                         +------------+
-        +--------+                     |           |          |           |                         |            |
-        |        |  Composite Evidence |           |  (CE)    |           |       (CE)              |            |
-        |        +-------------------->+           +--------->+           +------------------------>+            |
-        |        |     (CE)            |           |Partial AR|           |     Partial AR          |            |
-        |Attester|                     | Verifier 1|          | Verifier 2|                         | Verifier N |
-        |  or    |  Aggregated         |           |          |           |                         |            |
-        | RP     +<--------------------+           +<---------+           +<------------------------+            |
-        +--------+ Attestation Results |           |  (AAR)   |           |      (AAR)              |            |
-                      (AAR)            |           |          |           |                         |            |
-                                       +-----------+          +-----------+                         +------------+
+~~~ aasvg
+                               +-----------+          +-----------+             +-----------+
++--------+                     |           |          |           |             |           |
+|        |  Composite Evidence |           |  (CE)    |           |   (CE)      |           |
+|        +-------------------->+           +--------->+           +------------>+           |
+|        |     (CE)            |           |Partial AR|           | Partial AR  |           |
+|Attester|                     | Verifier 1|          | Verifier 2|             | Verifier N|
+|  or    |  Aggregated         |           |          |           |             |           |
+| RP     +<--------------------+           +<---------+           +<------------+           |
++--------+ Attestation Results |           |  (AAR)   |           |  (AAR)      |           |
+              (AAR)            |           |          |           |             |           |
+                               +-----------+          +-----------+             +-----------+
+~~~
 
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
