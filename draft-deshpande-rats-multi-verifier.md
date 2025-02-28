@@ -101,7 +101,7 @@ Aggregated Attestation Results:
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
 
-A Composite Attester has multiple Component Attesters. Each Attester requires a different set of Verifiers. Hence multiple Verifiers coordinate together to appraise a Composite Attester.
+A Composite Attester has multiple Component Attesters. Each Attester requires a different set of Verifiers. Hence multiple Verifiers collaborate to appraise a Composite Attester.
 
 ## Hierarchical Pattern {#sec-lead-verifier}
 Figure below shows the block diagram of a Hierarchical Pattern.
