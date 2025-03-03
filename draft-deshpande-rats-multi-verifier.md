@@ -218,6 +218,7 @@ The Verifier needs to ensure that the claims included in the Evidence reflect th
 In the case of Hierarchical Pattern, the Verification of Freshness should be checked by the Lead Verifier.
 
 In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
+
 # Security Considerations
 
 <cref>TODO</cref>
