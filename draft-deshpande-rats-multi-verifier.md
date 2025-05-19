@@ -65,13 +65,32 @@ IETF RATS Architecture, defines the key role of a Verifier.  In a complex system
 
 # Introduction
 
-A Verifier plays a Central Role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
+A Verifier plays a central role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which is essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, prior to making any critical decisions about the Attester, such as admitting to network or releasing confidential resources to it.
 Attesters can come in wide varieties of shape and form. For example Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester {{sec-glossary}}, generate Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted machine's GPU. Throughout this document we use the term Component Attester {{sec-glossary}} to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
 
-A Verifier needs Reference Values and Endorsements from the supply chain actors (for example OEM/ODM) to conduct the appraisal of an Attester. Given the range of Component Attesters in a Composite Attester, it is possible that a single Verifier may not have all the capabilities or the information required to conduct the complete appraisal of the Composite Attester. In this case, multiple Verifiers need to collaborate to conclude the appraisal and produce the Attestation Results.
+In a Composite Attester{{sec-glossary}} system it may not be possible that a single Verifier may possess all the capabilities or the information required to conduct the complete appraisal of the Attester. Please refer to {{sec-need-multiverifier}}, for motivation of this document. Multiple Verifiers need to collaborate to conclude the appraisal and produce the Attestation Results.
 
 
 This document describes various topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce an Attestation Results.
+
+# Need for Multiple Verifiers
+{: #sec-need-multiverifier }
+In order to conduct the role of attestation verification, a Verifier needs:
+1. Reference Values from trusted supply chain of the Attester
+2. Endorsements from trusted supply chain of the Attester
+3. Appraisal policy for Evidence, which is under the control of Verifier owner
+
+The above inputs are linked to the shape and form of the Attester, i.e the type of claims and the policies of Verification.
+For composite Attesters, there is a heterogeneity of Evidence formats, each with a specific purpose, for example a CPU and a GPU.
+The composite Attester composition can change based on market dynamics and availability over time (e.g., a set of racks in a
+data center gets thousands of new FPGAs). It is highly unlikely that there is always one appropriate Verifier that satisfies all the requirements that a complex and changing composite Attesters impose. It may not be economically viable to build and maintain such degree of complexity, in a single Verifier, hence there is a need for a Multi Verifier System.
+
+In addition to above, there are several other factors that can lead to multi Verifier system, few are listed below:
+1. A part of a single component Verification policy may be internal to a Verifier Owner and it may not choose to reveal it to a monolithic Verifier.
+2. An Endorser may not wish to reveal its Reference Values or their lifecycle to a monolithic Verifier, hence may choose to keep its verification seperate.
+2. There may not be a single actor in the ecosystem, that can stand up and take ownership of Verifying every component Attester due to lack of knowledge, complexity, regulations or associated cost.
+3. Verifier services provided by component manufactures as well as Verifiers provided by the integrators, as well as Verifiers under local authority (close to the Attester) are the mix today and rarely it is just one of them.
+
 
 # Conventions and Definitions
 
