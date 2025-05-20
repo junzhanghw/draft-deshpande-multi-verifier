@@ -88,8 +88,8 @@ data center gets thousands of new FPGAs). It is highly unlikely that there is al
 In addition to above, there are several other factors that can lead to multi Verifier system, few are listed below:
 1. A part of a single component Verification policy may be internal to a Verifier Owner and it may not choose to reveal it to a monolithic Verifier.
 2. An Endorser may not wish to reveal its Reference Values or their lifecycle to a monolithic Verifier, hence may choose to keep its verification seperate.
-2. There may not be a single actor in the ecosystem, that can stand up and take ownership of Verifying every component Attester due to lack of knowledge, complexity, regulations or associated cost.
-3. Verifier services provided by component manufactures as well as Verifiers provided by the integrators, as well as Verifiers under local authority (close to the Attester) are the mix today and rarely it is just one of them.
+3. There may not be a single actor in the ecosystem, that can stand up and take ownership of Verifying every component Attester due to lack of knowledge, complexity, regulations or associated cost.
+4. Verifier services provided by component manufactures as well as Verifiers provided by the integrators, as well as Verifiers under local authority (close to the Attester) are the mix today and rarely it is just one of them.
 
 
 # Conventions and Definitions
