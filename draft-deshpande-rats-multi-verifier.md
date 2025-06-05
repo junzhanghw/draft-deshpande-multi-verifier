@@ -81,15 +81,16 @@ To conduct the task of Evidence appraisal, a Verifier requires:
 3. Appraisal Policy for Evidence, which is under the control of the Verifier Owner
 
 The Verifier inputs listed above are linked to the shape and form of the Attesters, i.e., the type of claims and the policies of appraisal of Evidence.
-Typically, Composite Attesters come with a varying degree of heterogeneity of Evidence formats, depending on the type of Attesting Environments that come with each Component Attester, for example, CPU variants or GPU/FPGA variants.
-An Attester's composition can change over time based on market dynamics and availability (e.g., a set of racks in a
-data center gets thousands of new FPGAs). It is highly unlikely that there is always one appropriate Verifier that satisfies all the requirements that a complex and changing composite Attesters impose. It may not be economically viable to build and maintain such degree of complexity, in a single Verifier, hence there is a need for a Multi Verifier System.
+Typically, Composite Attesters {{sec-glossary}} come with a varying degree of heterogeneity of Evidence formats, depending on the type of Attesting Environments that come with each Component Attester {{sec-glossary}}, for example, CPU variants or GPU/FPGA variants. When conducting appraisal of Evidence from a Composite Attester, following challenges remain.
 
-In addition to above, there are several other factors that can lead to multi Verifier system, few are listed below:
-1. A part of a single component Verification policy may be internal to a Verifier Owner and it may not choose to reveal it to a monolithic Verifier.
-2. An Endorser may not wish to reveal its Reference Values or their lifecycle to a monolithic Verifier, hence may choose to keep its verification seperate.
-3. There may not be a single actor in the ecosystem, that can stand up and take ownership of Verifying every component Attester due to lack of knowledge, complexity, regulations or associated cost.
-4. Verifier services provided by component manufactures as well as Verifiers provided by the integrators, as well as Verifiers under local authority (close to the Attester) are the mix today and rarely it is just one of them.
+1. An Attester's composition can change over time based on market dynamics and availability (e.g., a set of racks in a
+data center gets thousands of new FPGAs).
+It is highly unlikely that there is always one appropriate Verifier that satisfies all the requirements that a complex and changing composite Attesters impose.
+It may not be economically viable to build and maintain such degree of complexity, in a single Verifier, hence there is a need for a Multi Verifier System.
+2. A part of a single component Verification policy may be internal to a Verifier Owner and it may not choose to reveal it to a monolithic Verifier.
+3. An Endorser may not wish to reveal its Reference Values or their lifecycle to a monolithic Verifier, hence may choose to keep its verification seperate.
+4. There may not be a single actor in the ecosystem, that can stand up and take ownership of Verifying every component Attester due to lack of knowledge, complexity, regulations or associated cost.
+5. Verifier services provided by component manufactures as well as Verifiers provided by the integrators, as well as Verifiers under local authority (close to the Attester) are the mix today and rarely it is just one of them.
 
 
 # Conventions and Definitions
