@@ -83,7 +83,7 @@ To conduct the task of Evidence appraisal, a Verifier requires:
 The Verifier inputs listed above are linked to the shape of the Attesters.
 Typically, Composite Attesters come with a varying degree of heterogeneity of Evidence formats, depending on the type of Attesting Environments that come with each Component Attester, for example, CPU variants or GPU/FPGA variants. When conducting Evidence appraisal for a Composite Attester, the following challenges remain:
 
-1. An Attester's composition can change over time based on market dynamics and availability (e.g., a set of racks in a data center gets thousands of new FPGAs).
+1. An Attester's composition can change over time based on market requirements and availability (e.g., a set of racks in a data center gets thousands of new FPGAs).
 It is highly unlikely that there is always one appropriate Verifier that satisfies all the requirements that a complex and changing Composite Attesters imposes.
 It may not be economically viable to build and maintain such a degree of complexity in a single Verifier.
 2. A Verifier Owner may have an Appraisal Policy for Evidence of a Component Attester that is internal to them and which they may choose not to reveal to a “monolithic" Verifier.
