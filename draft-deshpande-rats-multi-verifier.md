@@ -273,7 +273,7 @@ public key is known to the sub Verifiers.
 
 4. Evidence might contain sensitive or confidential information, there might be a need for
 confidentiality protection of the individual Evidence from Lead Verifier to sub Verifiers.
-The Lead Verifier may choose to Encrypt the individual Evidence using the public Key for the Verifier it communicates.
+The Lead Verifier may choose to Encrypt the individual Evidence using the public Key of the Verifier it communicates.
 
 If there isn't confidentiality protection of conceptual messages themselves,
 the underlying conveyance protocol should provide these protections.
