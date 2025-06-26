@@ -270,7 +270,7 @@ confidentiality protection of the individual Evidence conveyed to each Verifier.
 One option is that the Lead Verifier may choose to Encrypt the individual Evidence for
 Confidentiality protection, using the public Key for the Verifier it communicates.
 
-The Composite Attester Evidence may contain Component Attester Evidence, each having signature
+The Composite Attester Evidence contains Component Attester Evidence, each having signature
 from the Attesting Environments that generated it. This ascertains the authenticity and integrity protection
 of individual Evidence Messages exchanged between the Verifier.
 
