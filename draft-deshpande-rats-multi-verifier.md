@@ -1,6 +1,6 @@
 ---
-title: Remote Attestation MultiVerifier
-abbrev: RATS MultiVerifier
+title: Remote Attestation with Multiple Verifiers
+abbrev: RATS Many-Verifiers
 docname: draft-deshpande-rats-multi-verifier-latest
 date: {DATE}
 category: info
