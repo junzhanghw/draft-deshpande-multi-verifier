@@ -76,8 +76,11 @@ This document describes various topological patterns of multiple Verifiers that 
 # Need for Multiple Verifiers
 {: #sec-need-multiverifier }
 To conduct the task of Evidence appraisal, a Verifier requires:
+
 1. Reference Values from trusted supply chain actors producing, aggregating, or administering Attesters (Reference Value Providers)
+
 2. Endorsements from trusted supply chain actors producing, certifying, or compliance checking Attesters (Endorsers)
+
 3. Appraisal Policy for Evidence, which is under the control of the Verifier Owner
 
 The Verifier inputs listed above are linked to the shape of the Attesters.
@@ -166,7 +169,7 @@ Figure below shows the block diagram of a Hierarchical Pattern.
                                   |          |             +-----------+
                                   +----------+
 ~~~
-
+{: #fig-h-pattern title="Hierarchical Pattern"}
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -216,7 +219,7 @@ Figure below shows the block diagram of a Cascaded Pattern.
               (AAR)            |           |          |           |             |           |
                                +-----------+          +-----------+             +-----------+
 ~~~
-
+{: #fig-c-pattern title="Cascaded Pattern"}
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
 
@@ -286,6 +289,7 @@ the Security and Privacy consideration of Evidence between the Attester/RP and e
 Partial and Aggregated Attestation Results are exchanged among the Verifiers.
 It is TBD how the Security and Privacy of these messages can be ascertained.
 Few possible options are listed below.
+
 1. All the Verifiers in the Eco-System share a common Trust Anchor Store. The Sender Ensures the Confidentiality and Integrity of the Partial/Aggregated AAR. The receiver Verifies the Confidentiality of these messages using the Private Keys in its database. It Verifies the authenticity and integrity of these messages using the Trust Anchor Store Public Keys.
 
 2. The Verfier always communicates with a known Verifier in the chain. Hence it only maintains the trust roots for its communicating Verifier.
@@ -293,14 +297,9 @@ Few possible options are listed below.
 If there isn't confidentiality protection of conceptual messages themselves,
 the underlying conveyance protocol should provide these protections
 
-It will be discussed further in the RATS Working Group.
-
-
-<cref>TODO</cref>
+These and new options will be discussed further in the RATS Working Group.
 
 # IANA Considerations
-
-## CBOR Tag Registrations
 
 
 # Acknowledgements
