@@ -1,4 +1,4 @@
-# Remote Attestation MultiVerifier
+# Remote Attestation with Multiple Verifiers
 
 This is the working area for the individual Internet-Draft, "Remote Attestation MultiVerifier".
 
