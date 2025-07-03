@@ -76,8 +76,11 @@ This document describes various topological patterns of multiple Verifiers that 
 # Need for Multiple Verifiers
 {: #sec-need-multiverifier }
 To conduct the task of Evidence appraisal, a Verifier requires:
+
 1. Reference Values from trusted supply chain actors producing, aggregating, or administering Attesters (Reference Value Providers)
+
 2. Endorsements from trusted supply chain actors producing, certifying, or compliance checking Attesters (Endorsers)
+
 3. Appraisal Policy for Evidence, which is under the control of the Verifier Owner
 
 The Verifier inputs listed above are linked to the shape of the Attesters.
@@ -166,7 +169,7 @@ Figure below shows the block diagram of a Hierarchical Pattern.
                                   |          |             +-----------+
                                   +----------+
 ~~~
-
+{: #fig-h-pattern title="Hierarchical Pattern"}
 
 The following sub-sections describe the various roles that exist in this pattern.
 
@@ -216,7 +219,7 @@ Figure below shows the block diagram of a Cascaded Pattern.
               (AAR)            |           |          |           |             |           |
                                +-----------+          +-----------+             +-----------+
 ~~~
-
+{: #fig-c-pattern title="Cascaded Pattern"}
 
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
 
