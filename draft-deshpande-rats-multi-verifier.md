@@ -289,6 +289,7 @@ the Security and Privacy consideration of Evidence between the Attester/RP and e
 Partial and Aggregated Attestation Results are exchanged among the Verifiers.
 It is TBD how the Security and Privacy of these messages can be ascertained.
 Few possible options are listed below.
+
 1. All the Verifiers in the Eco-System share a common Trust Anchor Store. The Sender Ensures the Confidentiality and Integrity of the Partial/Aggregated AAR. The receiver Verifies the Confidentiality of these messages using the Private Keys in its database. It Verifies the authenticity and integrity of these messages using the Trust Anchor Store Public Keys.
 
 2. The Verfier always communicates with a known Verifier in the chain. Hence it only maintains the trust roots for its communicating Verifier.
@@ -296,7 +297,7 @@ Few possible options are listed below.
 If there isn't confidentiality protection of conceptual messages themselves,
 the underlying conveyance protocol should provide these protections
 
-It will be discussed further in the RATS Working Group.
+These and new options will be discussed further in the RATS Working Group.
 
 
 <cref>TODO</cref>
