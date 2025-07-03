@@ -299,12 +299,7 @@ the underlying conveyance protocol should provide these protections
 
 These and new options will be discussed further in the RATS Working Group.
 
-
-<cref>TODO</cref>
-
 # IANA Considerations
-
-## CBOR Tag Registrations
 
 
 # Acknowledgements
