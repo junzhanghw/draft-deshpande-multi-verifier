@@ -55,7 +55,7 @@ contributor:
 
 informative:
   RFC9334: rats-arch
-
+  I-D.draft-ietf-rats-corim: corim
 
 --- abstract
 
@@ -246,7 +246,55 @@ In the case of Hierarchical Pattern, the Verification of Freshness should be che
 
 In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
 
-# Security Considerations
+# Security and Privacy Considerations
+
+The Verifier is effectively part of the Attesters' and Relying Parties' trusted computing base (TCB). Any mistake in the appraisal procedure conducted by the Verifier could have security implications. For Security and Privacy considerations while conducting appraisal procedure the Verifiers described in this document MUST follow the guidance detailed in Security and Privacy considerations of a RATS Verifier as detailed in {{Section 11 of -corim}}.
+
+## Conceptual Message Protection
+
+### Hierarchical Pattern
+
+In this topology the Lead Verifier communicates with the Attester/RP and with other Verifiers.
+
+The Security and Privacy consideration for the messages between the Lead Verifier and the Attester/RP follows the guidance provided in RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
+
+The Lead Verifier conveys Component Attester Evidence to each of the sub-Verifiers and receives partial
+Attestation Results from them.
+
+1. The communication among the Verifiers should use secure channels, such as TLS. This ensures confidentiality, integrity and authenticity of the message exchanged between the Verifiers.
+
+2. For integrity protection at the application layer, each partial Attestation Result Message is signed by a key known to the Lead Verfier.
+
+3. The Composite Attester Evidence contains Component Attester Evidence, each having signature
+from the Attesting Environments that generated it. This ascertains the authenticity and integrity protection
+of individual Evidence exchanged between the Verifier. However there may be cases (for example UCCS), where the
+individual Evidence is not signed. In such scenarios, the Lead Verifier may add its own signature using a private key whose
+public key is known to the sub Verifiers.
+
+4. Evidence might contain sensitive or confidential information, there might be a need for
+confidentiality protection of the individual Evidence from Lead Verifier to sub Verifiers.
+The Lead Verifier may choose to Encrypt the individual Evidence using the public Key of the Verifier it communicates.
+
+If there isn't confidentiality protection of conceptual messages themselves,
+the underlying conveyance protocol should provide these protections.
+
+### Cascaded Pattern
+
+In this pattern, the Composite Evidence is received by each Verifier in the chain. As a result,
+the Security and Privacy consideration of Evidence between the Attester/RP and each of the Verifier follows the guidance provided in RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
+
+Partial and Aggregated Attestation Results are exchanged among the Verifiers.
+It is TBD how the Security and Privacy of these messages can be ascertained.
+Few possible options are listed below.
+1. All the Verifiers in the Eco-System share a common Trust Anchor Store. The Sender Ensures the Confidentiality and Integrity of the Partial/Aggregated AAR. The receiver Verifies the Confidentiality of these messages using the Private Keys in its database. It Verifies the authenticity and integrity of these messages using the Trust Anchor Store Public Keys.
+
+2. The Verfier always communicates with a known Verifier in the chain. Hence it only maintains the trust roots for its communicating Verifier.
+
+If there isn't confidentiality protection of conceptual messages themselves,
+the underlying conveyance protocol should provide these protections
+
+It will be discussed further in the RATS Working Group.
+
 
 <cref>TODO</cref>
 
