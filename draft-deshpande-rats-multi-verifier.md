@@ -96,7 +96,7 @@ It may not be economically viable to build and maintain such a degree of complex
 
 
 # Reference Use Cases
-This section covers a number of generic use cases that demonstrates Multi Verifier applicability, independent of specific solutions.
+This section covers generic use cases that demonstrate Multi Verifier applicability, independent of specific solutions.
 The purpose is to provide motivation for various aspects of the architecture presented in this document.
 Many other use cases exist; this document does not contain a complete list.
 
@@ -106,7 +106,7 @@ A typical modern Device contains not only a traditional Central Processing Unit 
 For example, either to speed up the processing or to assist in Inferencing. The trustworthiness assessment of the Device requires trust in all these individual components.
 However, the Verifier for each type of component may be deployed by each vendor separately, and these vendors may prefer to keep the Attestation Verification inputs or the Verification algorithm seperate and isolated from other Verifiers in the eco-system, due to business concerns.
 
-When such Verifier operate, it needs to interact with other Verifiers and hence need to understand the topology and information exchange, for example to receive partial Evidence, specific to the relevant component or convey partial Attestation Results for the component.
+When such a Verifier operates, it needs to interact with other Verifiers and hence needs to understand the topology and information exchange, for example to receive partial Evidence, specific to the relevant component or convey partial Attestation Results for the component.
 
 Attester: A modern Device having mulitple components
 
