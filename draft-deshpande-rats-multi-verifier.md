@@ -103,7 +103,7 @@ Many other use cases exist; this document does not contain a complete list.
 ## Verification of Devices containing heterogenous components
 A typical modern Device contains not only a traditional Central Processing Unit (CPU), but also heterogeneous acceleration components (GPU, NPU, TPU, etc) from different suppliers, to acheive a specific purpose.
 
-For example, either to speed up the processing or to assist in Inferencing. The trustworthiness assessment of the Device requires trust in all these individual components.
+For example, either to speed up the processing or to assist in AI Inference. The trustworthiness assessment of the Device requires trust in all these individual components.
 However, the Verifier for each type of component may be deployed by each vendor separately, and these vendors may prefer to keep the Attestation Verification inputs or the Verification algorithm separate and isolated from other Verifiers in the eco-system, due to business concerns, such as complexity or cost.
 
 When these Verifiers operate in concert, they need to interact with each other and hence needs to understand the topology and need to inter work using standardised protocols, for example to receive partial Evidence, specific to the relevant component or convey partial Attestation Results for the component.
