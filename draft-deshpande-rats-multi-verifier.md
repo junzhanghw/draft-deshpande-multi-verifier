@@ -128,7 +128,7 @@ platform claims  appraised by a Platform Verifier and Workload Claims appraised 
 
 Attester: A layered Attester containing a platform and a workload running in a CC environment
 
-Relying Party: An entity which is making trust based decisions, such as a key release to a workload
+Relying Party: An entity which is making trust decisions, such as a key release to a workload
 
 
 # Conventions and Definitions
