@@ -104,13 +104,13 @@ Many other use cases exist; this document does not contain a complete list.
 A typical modern Device contains not only a traditional Central Processing Unit (CPU), but also heterogeneous acceleration components (GPU, NPU, TPU, etc) from different suppliers, to acheive a specific purpose.
 
 For example, either to speed up the processing or to assist in Inferencing. The trustworthiness assessment of the Device requires trust in all these individual components.
-However, the Verifier for each type of component may be deployed by each vendor separately, and these vendors may prefer to keep the Attestation Verification inputs or the Verification algorithm seperate and isolated from other Verifiers in the eco-system, due to business concerns.
+However, the Verifier for each type of component may be deployed by each vendor separately, and these vendors may prefer to keep the Attestation Verification inputs or the Verification algorithm separate and isolated from other Verifiers in the eco-system, due to business concerns, such as complexity or cost.
 
-When such a Verifier operates, it needs to interact with other Verifiers and hence needs to understand the topology and information exchange, for example to receive partial Evidence, specific to the relevant component or convey partial Attestation Results for the component.
+When these Verifiers operate in concert, they need to interact with each other and hence needs to understand the topology and need to inter work using standardised protocols, for example to receive partial Evidence, specific to the relevant component or convey partial Attestation Results for the component.
 
-Attester: A modern Device having mulitple components
+Attester: A Device having multiple components
 
-Relying Party: An entity which is making trust based decisions for such an Attester
+Relying Party: An entity which is making trust decisions for such an Attester
 
 ## Verification of Workloads operating in Confidential Computing environment
 
