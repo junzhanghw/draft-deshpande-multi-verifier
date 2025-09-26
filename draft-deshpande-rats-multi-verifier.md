@@ -114,10 +114,10 @@ Relying Party: An entity which is making trust decisions for such an Attester
 
 ## Verification of Workloads operating in Confidential Computing environment
 
-Confidential Computing is becoming increasingly important as organizations move more workloads into untrusted or shared environments. In such a system the application or workload (could be an AI model, database process, financial service, etc.) is prepared to run inside a TEE-enabled VM or an enclave. When the workload starts, the TEE generates a cryptographic attestation report proving:
+Confidential Computing is becoming increasingly important as organisations move more workloads into untrusted or shared environments. In such a system the application or workload (could be an AI model, database process, financial service, etc.) is executed inside a TEE-protected VM. When the workload starts, the TEE generates a cryptographic attestation report providing:
 
-1. The workload is running on a genuine platform with a set of platform claims reported in a attestation report.
-2. The workload is running correct application with a known set of claims pertaining to the workload.
+1. The workload is running on a platform with a known state.
+2. The workload is running correct application.
 
 The platform is often built by an independent TEE Vendor, while the Workloads are deployed by Workload owners that come from different parts of supply chain.
 
