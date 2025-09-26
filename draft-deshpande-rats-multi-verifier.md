@@ -95,6 +95,43 @@ It may not be economically viable to build and maintain such a degree of complex
 5. The mix today is a combination of Verifier services provided by component manufacturers, Verifiers provided by integrators, and Verifiers under local authority (i.e., close to the attester). Rarely is it just one of these.
 
 
+# Reference Use Cases
+This section covers generic use cases that demonstrate the applicability of Multi Verifier, regardless of specific solutions.
+Its purpose is to motivate various aspects of the architecture presented in this document.
+There are many other use cases; this document does not contain a complete list.
+
+## Verification of Devices containing heterogenous components
+A device may contain a central processing unit (CPU), as well as heterogeneous acceleration components (such as GPUs, NPUs and TPUs) from different suppliers.
+
+These components can be used to speed up processing or assist with AI inference.
+Trustworthiness assessment of the device requires trust in all of these components.
+However, due to business concerns such as scalability, complexity and cost of infrastructure, the Verifier for each type of component may be deployed separately by each vendor.
+
+When these Verifiers operate together, they must interact with each other, understand the topology and interoperate using standardised protocols.
+For instance, they may need to exchange partial Evidence relating to the relevant component or partial Attestation Results for it.
+
+Attester: A Device having multiple components
+
+Relying Party: An entity which is making trust decisions for such an Attester
+
+## Verification of Workloads operating in Confidential Computing environment
+
+As organisations move more workloads into untrusted or shared environments, Confidential Computing is becoming increasingly important.
+In such a system, an application or workload (which could be an AI model, database process or financial service, for example) is executed inside a TEE-protected virtual machine (VM).
+When the workload starts, the TEE can generate a cryptographic attestation report providing:
+
+1. The workload is running on a platform with a known state.
+2. The workload is running the correct application.
+
+The platform is often built by an independent TEE vendor, while the workloads are deployed by workload owners from different parts of the supply chain.
+
+Verification of Attestation for such a system requires independent, yet mutually coordinated, verification of: Platform claims appraised by a Platform Verifier and Workload claims appraised by a Workload Verifier.
+
+Attester: A layered Attester containing a platform and a workload running in a CC environment
+
+Relying Party: An entity which is making trust decisions, such as a key release to a workload
+
+
 # Conventions and Definitions
 
 {::boilerplate bcp14}
