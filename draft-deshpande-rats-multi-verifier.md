@@ -239,7 +239,7 @@ In this topology the Lead Verifier is fully trusted by Component Attester Verifi
 
 Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors for Verifier 1..N.
 
-## Cascaded Pattern {: #sec-verifier-cascade }
+## Cascaded Pattern {#sec-verifier-cascade }
 
 Figure below shows the block diagram of a Cascaded Pattern.
 
