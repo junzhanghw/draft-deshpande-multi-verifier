@@ -171,6 +171,13 @@ Aggregated Attestation Results:
 
 : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
+As defined in [RFC6024]:
+
+   |  A trust anchor represents an authoritative entity via a public key
+   |  and associated data.  The public key is used to verify digital
+   |  signatures, and the associated data is used to constrain the types
+   |  of information for which the trust anchor is authoritative.
+
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
 
