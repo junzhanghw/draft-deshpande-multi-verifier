@@ -171,13 +171,6 @@ Aggregated Attestation Results:
 
 : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
-As defined in [RFC6024]:
-
-   |  A trust anchor represents an authoritative entity via a public key
-   |  and associated data.  The public key is used to verify digital
-   |  signatures, and the associated data is used to constrain the types
-   |  of information for which the trust anchor is authoritative.
-
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
 
@@ -250,7 +243,7 @@ The role of a Component Attester Verifier is to receive Component Attester Evide
 
 In this topology the Lead Verifier is fully trusted by Component Attester Verifiers (example Verifier 1).
 
-Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors for Verifier 1..N.
+Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors [RFC6024] for Verifier 1..N.
 
 ## Cascaded Pattern {#sec-verifier-cascade }
 
@@ -354,5 +347,8 @@ These and new options will be discussed further in the RATS Working Group.
 
 # Acknowledgements
 
-
 <cref>TODO</cref>
+
+# Refrences
+
+[RFC6024]  Reddy, R. and C. Wallace, "Trust Anchor Management Requirements", RFC 6024, DOI 10.17487/RFC6024, October 2010, <https://www.rfc-editor.org/info/rfc6024>.
