@@ -51,7 +51,13 @@ contributor:
     organization: UBITECH Ltd.
     email: agiannetsos@ubitech.eu
 
+ - name: Steven Bellock
+   organizaion: NVIDIA
+   email: sbellock@nvidia.com
 
+ - name: Ghada Arfaoui
+   organization: ORANGE
+   email: ghada.arfaoui@orange.com
 
 informative:
   RFC9334: rats-arch
