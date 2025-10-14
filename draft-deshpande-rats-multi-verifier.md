@@ -350,5 +350,6 @@ These and new options will be discussed further in the RATS Working Group.
 
 The authors would like to thank
 Simon Frost
+and
 Usama Sardar
 for their reviews and suggestions.
