@@ -2,7 +2,6 @@
 title: Remote Attestation with Multiple Verifiers
 abbrev: RATS Many-Verifiers
 docname: draft-deshpande-rats-multi-verifier-latest
-date: {DATE}
 category: info
 ipr: trust200902
 area: Security
@@ -43,16 +42,16 @@ author:
   email:  henk.birkholz@sit.fraunhofer.de
 
 contributor:
- -  name: Thomas Fossati
-    organization: Linaro
-    email: Thomas.Fossati@linaro.org
+ - name: Thomas Fossati
+   organization: Linaro
+   email: Thomas.Fossati@linaro.org
 
- -  name: Thanassis Giannetsos
-    organization: UBITECH Ltd.
-    email: agiannetsos@ubitech.eu
+ - name: Thanassis Giannetsos
+   organization: UBITECH Ltd.
+   email: agiannetsos@ubitech.eu
 
  - name: Steven Bellock
-   organizaion: NVIDIA
+   organization: NVIDIA
    email: sbellock@nvidia.com
 
  - name: Ghada Arfaoui
@@ -62,6 +61,7 @@ contributor:
 informative:
   RFC9334: rats-arch
   I-D.draft-ietf-rats-corim: corim
+  RFC6024: trust-anchors
 
 --- abstract
 
@@ -243,7 +243,7 @@ The role of a Component Attester Verifier is to receive Component Attester Evide
 
 In this topology the Lead Verifier is fully trusted by Component Attester Verifiers (example Verifier 1).
 
-Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors for Verifier 1..N.
+Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors (see {{-trust-anchors}}) for Verifier 1..N.
 
 ## Cascaded Pattern {#sec-verifier-cascade }
 
