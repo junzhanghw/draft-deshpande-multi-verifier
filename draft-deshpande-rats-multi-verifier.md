@@ -345,6 +345,11 @@ These and new options will be discussed further in the RATS Working Group.
 # IANA Considerations
 
 
-# Acknowledgements
+# Acknowledgments
+{:numbered="false"}
 
-<cref>TODO</cref>
+The authors would like to thank
+Simon Frost
+and
+Usama Sardar
+for their reviews and suggestions.
