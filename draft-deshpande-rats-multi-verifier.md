@@ -162,10 +162,15 @@ Component Attester:
 Composite Evidence:
 
 : Evidence produced by a Composite Attester.
+Also referred to as CE in the document.
 
 Lead Verifier:
 
 : A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
+Also referred to as LV in the document.
+
+Partial Attestation Results:
+: Attestation Results produced by a Component Verifier, specific to one Component Attester.
 
 Aggregated Attestation Results:
 
