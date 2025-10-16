@@ -221,11 +221,16 @@ The following sub-sections describe the various roles that exist in this pattern
 In this topological pattern, there is an Entity known as Lead Verifier.
 
 Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model).
-It receives Attestation Evidence from a Composite Attester. If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature. If signature verification fails, the Verification is terminated. Otherwise it performs the following steps.
+It receives Attestation Evidence from a Composite Attester.
+If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature.
+If signature verification fails, the Verification is terminated.
+Otherwise it performs the following steps.
 
-* Lead Verifier has the knowledge about the overall structure of the Composite Evidence. It decodes the Composite Evidence to extract the Component Attester Evidence. This may lead to "N" Evidence, one for each Component Attester.
+* Lead Verifier has the required knowledge to break down the Composite Evidence into individual Component Evidence. It decodes the Composite Evidence to extract the Component Attester Evidence. This may lead to "N" Evidence, one for each Component Attester.
 
-* Lead Verifier delegates each Component Attester Evidence to their own Verifier and receives Component Attester Attestation Results after successful Appraisal of Evidence.
+* Lead Verifier delegates each Component Attester Evidence to its own Verifier and receives Component Attester Attestation Results after successful Appraisal of Evidence.
+A Verifier may have a hard coded configuration of Component Verifiers to route the CE, or it may have an apriori knowledge using a specific protocol to discover the Verifiers needed to appraise each CE.
+Any specific protocol is out of scope for this specification.
 
 * Once the Lead Verifier receives Attestation Results from all the Verifiers, it combines the results from each Verifier to construct a Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
 
@@ -235,15 +240,18 @@ The overall verdict may be dependent on the Appraisal Policy of the Lead Verifie
 
 In certain topologies, it is possible that only the Composite Evidence is signed to provide the overall integrity, while the individual Component Attester Evidence (example Evidence 1) is not protected. In such cases, the Lead Verifer upon processing of Composite Evidence may wrap the Component Attester Evidence (example Evidence 1) in a signed Conceptual Message Wrapper (CMW), and send it to each Verifier (example Verifier 1).
 
+
 ### Verifier for Component Attester
 
 The role of a Component Attester Verifier is to receive Component Attester Evidence from the lead Verifier and produce Attestation Results to the Lead Verifier.
 
 ### Trust Relationships
 
-In this topology the Lead Verifier is fully trusted by Component Attester Verifiers (example Verifier 1).
+In this topology the Lead Verifier is fully trusted by Component Verifiers (example Verifier 1).
+Each Component Verifiers are provisioned with the Trust Anchors (see {{-trust-anchors}}) for the Lead Verifier.
 
-Also, each of the Component Attester Verifier is fully trusted by the Lead Verifier. Lead Verifier is provisioned with the Trust Anchors (see {{-trust-anchors}}) for Verifier 1..N.
+Also, each of the Component Verifier is fully trusted by the Lead Verifier.
+Lead Verifier is provisioned with the Trust Anchors (see {{-trust-anchors}}) for Verifier 1..N.
 
 ## Cascaded Pattern {#sec-verifier-cascade}
 
@@ -264,15 +272,18 @@ Figure below shows the block diagram of a Cascaded Pattern.
 ~~~
 {: #fig-c-pattern title="Cascaded Pattern"}
 
-In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal. Each Verifier in the chain possess the knowledge of the entire Composite Attester topology.
+In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal.
+Each Verifier in the chain has the knowledge to derive or extract the Component Evidence, which it can appraise, from the Composite Evidence.
 
 Attester may send the Composite Evidence(CE) to any of the Verifier (directly in the passport model, or indirectly via the Relying Party in the background-check model). The Verifier which processes the Composite Evidence, Verifies the signature on the Evidence, if present. It decodes the Composite Evidence performs Appraisal of the Component Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete, it forwards the Composite Evidence and partial Attestation Results to the subsequent Verifier.
 
-The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the Component Attester Evidence and returns the complete Attestation Results to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the Aggregated Attestation Results(AAR) from where it received its Combined Evidence. Alternatively, it may also modify the AAR based on the inspection of received AAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new AAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Aggregated Attestation Results are signed and the Aggregated Attestation Results are sent to the Attester (in Passport Model) or Relying Party (in background check model).
+The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the Component Attester Evidence and returns the Aggregated Attestation Results(AAR) to the N-1 Verifier, which passed Evidence to it. The N-1 Verifier then simply passes the AAR from where it received its Combined Evidence. Alternatively, it may also modify the AAR based on the inspection of received AAR. For example, it may add its own Verifier Added Claims (policy claims) and produce a new AAR. The process is repeated, until the Verifier, which recieved the initial Evidence is reached. At this point in time the Aggregated Attestation Results are signed and the AAR are sent to the Attester (in Passport Model) or Relying Party (in background check model).
 
 As shown in the picture, the partial results and Combined Evidence is transmitted to a chain of Verifier, till the Appraisal is complete.
-The Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Aggregated Attestation Results to the Verifier from which it receives Combined Evidence.
+Upon completion, the Verifier combines the incoming partial results, combines the results from it own Evidence Appraisal and passes the Aggregated Attestation Results to the Verifier from which it receives Combined Evidence.
 
+There are many protocols to determine how a Verifier can select the next Verifier to route the CE.
+This document does not mandate any specific protocol for determining the Verifiers in cascade.
 
 ### Trust Relationships
 
