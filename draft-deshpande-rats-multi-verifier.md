@@ -315,7 +315,8 @@ The hierarchical pattern introduces a central trust entity, the Lead Verifier (L
 
 **Threat:** A compromised LV can orchestrate attacks, such as approving malicious attestations, wrongly aggregating attestation results or leaking sensitive evidence. This is a single point of failure from a trust perspective.
 
-**Mitigation:** The LV MUST be hardened and operate in a secure environment. Its operation SHOULD be auditable. Component Verifier (CVs) should be designed to minimize the trust placed in the LV.
+**Mitigation:** The LV MUST be hardened and operate and store its Keys in a secure environment. Its operation SHOULD be auditable.
+Component Verifiers should be made available suitable trust anchors so that they can establish required trust in the authority of the LV.
 
 ##### Communication Security (LV <-> CV)
 
@@ -325,12 +326,14 @@ The hierarchical pattern introduces a central trust entity, the Lead Verifier (L
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
 
 **Threat:** The LV could forward manipulated evidence to a CV, or an attacker could inject fake evidence.
-**Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the forwarded evidence bundle using a key that the CV trusts. This prevents the LV from undetectably altering the evidence.
+**Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester at origin, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the Component Evidence using a key that the CV trusts. This prevents any attacker in the transit to alter the Component Evidence.
 
 ##### Results Integrity and Origin Authentication (CV -> LV)
 
 **Threat:** Partial Attestation Results could be manipulated in transit or forged by a malicious CV.
-**Mitigation:** Each Partial Attestation Result MUST be digitally signed by the CV. The LV MUST validate these signatures using trusted keys for each CV before aggregating them into the AAR.
+**Mitigation:** Each Partial Attestation Result MUST be digitally signed by the CV.
+ LV should maintain a list of trust anchors for the CV's it communicates with. 
+The LV MUST validate the signature using the required trust anchor for the CV, before adding the Partial Attestation Results to the Aggregated Attestation Results. 
 
 
 ##### Replay Attacks
