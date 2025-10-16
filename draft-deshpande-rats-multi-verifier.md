@@ -169,6 +169,10 @@ Lead Verifier:
 : A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
 Also referred to as LV in the document.
 
+Component Verifier:
+: A Verifier which is responsible for the Verification of one single component or a layer.
+Also referred to as CV in the document.
+
 Partial Attestation Results:
 : Attestation Results produced by a Component Verifier, specific to one Component Attester.
 
