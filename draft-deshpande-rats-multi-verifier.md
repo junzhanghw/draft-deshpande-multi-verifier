@@ -157,18 +157,27 @@ Composite Attester:
 
 Component Attester:
 
-: A Component Attester is a single Attester of a Composite Attester. For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Verifier.
+: A Component Attester is a single Attester of a Composite Attester.
+For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Component Verifier.
 
 Composite Evidence:
 
 : Evidence produced by a Composite Attester.
+Also referred to as CE in the document.
 
 Lead Verifier:
 
-: A Verifier which acts as a Main Verifier to receive Composite Evidence from a Composite Attester.
+: A Verifier which acts as a main Verifier to receive Composite Evidence from a Composite Attester in a Hierarchical pattern {{sec-lead-verifier}}.
+Also referred to as LV in the document.
+
+Component Verifier:
+: A Verifier which is responsible for the Verification of one single component or a layer.
+Also referred to as CV in the document.
+
+Partial Attestation Results:
+: Attestation Results produced by a Component Verifier, which contains partial results from atleast one or more Component Attesters.
 
 Aggregated Attestation Results:
-
 : An Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
 # Multi Verifier topological patterns
