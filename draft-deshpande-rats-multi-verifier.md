@@ -292,10 +292,12 @@ The Verifier is effectively part of the Attesters' and Relying Parties' trusted 
 
 ## Adversarial Model
 The security analysis in this section assumes that attackers may:
+
 1. Eavesdrop on any communication channel between Verifiers.
 2. Inject, modify, replay, or delay messages traversing the network.
 3. Compromise one or more Verifiers in the ecosystem, attempting to leak sensitive information (e.g., Evidence, Reference Values) or manipulate Attestation Results.
 4. Perform Man-in-the-Middle (MitM) attacks between any two communicating entities.
+
 The system is designed to be resilient under the assumption that the cryptographic keys used for signing Evidence and Attestation Results (by authentic entities) are not compromised.
 
 ## General Considerations
@@ -326,11 +328,12 @@ Component Verifiers should be made available suitable trust anchors so that they
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
 
 **Threat:** The LV could forward manipulated evidence to a CV, or an attacker could inject fake evidence.
-**Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester at origin, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the Component Evidence using a key that the CV trusts. This prevents any attacker in the transit to alter the Component Evidence.
+**Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester at origin, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the Component Evidence using a key that the CV trusts. This prevents any on-path attacker from altering the Component Evidence.
 
 ##### Results Integrity and Origin Authentication (CV -> LV)
 
 **Threat:** Partial Attestation Results could be manipulated in transit or forged by a malicious CV.
+
 **Mitigation:** Each Partial Attestation Result MUST be digitally signed by the CV.
  LV should maintain a list of trust anchors for the CV's it communicates with. 
 The LV MUST validate the signature using the required trust anchor for the CV, before adding the Partial Attestation Results to the Aggregated Attestation Results. 
@@ -339,6 +342,7 @@ The LV MUST validate the signature using the required trust anchor for the CV, b
 ##### Replay Attacks
 
 **Threat:** An adversary Component Verifier replays old Evidence or Attestation Results.
+
 **Mitigation:** The LV is responsible for enforcing freshness (via nonces, epochs, or timestamps). This freshness value MUST be propagated to CVs and back to the LV, to ensure final AR can be validated against the original challenge.
 
 ### Cascaded Pattern
@@ -351,21 +355,25 @@ The cascaded pattern distributes trust but requires each Verifier in the chain t
 ##### Verifier Compromise
 
 **Threat:** Any compromised Verifier in the chain can block, delay, or manipulate the attestation process. It can inject false partial results, drop evidence, or leak sensitive information.
+
 **Mitigation:** Relying Parties and Verifiers MUST be configured with strict trust policies defining the allowed paths and trusted Verifiers. Operations should be logged for auditability.
 
 ##### Communication Security
 
 **Threat:** Eavesdropping or manipulation of evidence and results between Verifiers.
+
 **Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with client authentication).
 
 ##### Evidence and Results Protection
 
 **Threat:** Lack of end-to-end security allows intermediate Verifiers to manipulate evidence or results that are not intended for them to appraise.
-**Mitigation:** End-to-end integrity protection is RECOMMENDED. The Composite Evidence should be signed by the Attester. Partial and Aggregated Attestation Results SHOULD be signed by the Verifier that generated them. This allows subsequent Verifiers and the Relying Party to verify that results have not been tampered with by intermediate nodes. 
+
+**Mitigation:** End-to-end integrity protection is RECOMMENDED. The Composite Evidence should be signed by the Attester. Partial and Aggregated Attestation Results SHOULD be signed by the Verifier that generated them. This allows subsequent Verifiers and the Relying Party to verify that results have not been tampered with by intermediate nodes.
 
 ##### Replay Attacks
 
 **Threat:** An adversary replays old Evidence or Attestation Results.
+
 **Mitigation:** The first Verifier in the chain (the one receiving evidence from the Attester/RP) is responsible for enforcing freshness (via nonces, epochs, or timestamps) for the entire cascade. This freshness value MUST be propagated with the Evidence and Results through the chain so the final AR can be validated against the original challenge.
 
 ### Security of the Hybrid Pattern
@@ -379,7 +387,7 @@ As the hybrid pattern is the composition of  hierarchical pattern and cascade pa
 The appraisal of a Composite Attester requires exchange of attestation related messages, for example, partial Evidence and partial Attestation Results, among multiple Verifiers. This can potentially leak sensitive information about the Attester's configuration , identities and the nature of composition.
 
 - Minimization: Attesters should only generate Evidence that is strictly necessary for the appraisal policy. Verifiers should only request necessary claims.
-- Confidentiality: Encryption should be used to prevent unauthorized parties (including other Verifiers in the hierarchy or cascade) from accessing sensitive Evidence. This is crucial in multi-tenant environments. 
+- Confidentiality: Encryption should be used to prevent unauthorized parties (including other Verifiers in the hierarchy or cascade) from accessing sensitive Evidence. This is crucial in multi-tenant environments.
 - Policy Handling: Verifiers should be careful not to leak their internal appraisal policies (e.g., through error messages or timing side channels) when communicating with other Verifiers or Attesters, as this information could be exploited by an attacker to manipulate appraisal.
 
 # IANA Considerations
