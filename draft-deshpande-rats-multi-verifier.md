@@ -292,55 +292,114 @@ In the case of Hierarchical Pattern, the Verification of Freshness should be che
 
 In the Cascaded Pattern, the freshness is always checked by the first Verifier in communication with either the Attester (Passport Model) or Relying Party (Background Check Model).
 
-# Security and Privacy Considerations
+# Security Considerations
 
-The Verifier is effectively part of the Attesters' and Relying Parties' trusted computing base (TCB). Any mistake in the appraisal procedure conducted by the Verifier could have security implications. For Security and Privacy considerations while conducting appraisal procedure the Verifiers described in this document MUST follow the guidance detailed in Security and Privacy considerations of a RATS Verifier as detailed in {{Section 11 of -corim}}.
+The Verifier is effectively part of the Attesters' and Relying Parties' trusted computing base (TCB).  When multiple Verifiers coordinate to conduct appraisal, it leads to larger TCB and hence more attack surface. Any mistake in the appraisal procedure conducted by one or more Verifiers could lead to severe security implications, such as incorrect Attestation Result of a component or a composition to the Relying party. This section details the security threats and mitigation strategies specific to the multi-verifier topologies described in this document. In addition to the considerations herein, Verifiers MUST follow the guidance detailed in the Security and Privacy considerations of a RATS Verifier as detailed in {{Section 11 of -corim}} and the RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
 
-## Conceptual Message Protection
+## Adversarial Model
+The security analysis in this section assumes that attackers may:
+
+1. Eavesdrop on any communication channel between Verifiers.
+
+2. Inject, modify, replay, or delay messages traversing the network.
+
+3. Compromise one or more Verifiers in the ecosystem, attempting to leak sensitive information (e.g., Evidence, Reference Values) or manipulate Attestation Results.
+
+4. Perform Man-in-the-Middle (MitM) attacks between any two communicating entities.
+
+The system is designed to be resilient under the assumption that the cryptographic keys used for signing Evidence and Attestation Results (by authentic entities) are not compromised.
+
+## General Considerations
+
+All communications between entities (Attester-Verifier, Verifier-Verifier, Verifier-RP) MUST be secured using mutually authenticated, confidential, and integrity-protected channels (e.g., TLS).
+
+
+## Security for Topological Patterns
 
 ### Hierarchical Pattern
 
-In this topology the Lead Verifier communicates with the Attester/RP and with other Verifiers.
+The hierarchical pattern introduces a central trust entity, the Lead Verifier (LV). The security of the entire system relies on the integrity and correct operation of the LV.
 
-The Security and Privacy consideration for the messages between the Lead Verifier and the Attester/RP follows the guidance provided in RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
+#### Threats and Mitigations
 
-The Lead Verifier conveys Component Attester Evidence to each of the sub-Verifiers and receives partial
-Attestation Results from them.
+##### LV Compromise
 
-1. The communication among the Verifiers should use secure channels, such as TLS. This ensures confidentiality, integrity and authenticity of the message exchanged between the Verifiers.
+**Threat:** A compromised LV can orchestrate attacks, such as approving malicious attestations, wrongly aggregating attestation results or leaking sensitive evidence. This is a single point of failure from a trust perspective.
 
-2. For integrity protection at the application layer, each partial Attestation Result Message is signed by a key known to the Lead Verfier.
+**Mitigation:** The LV MUST be hardened and operate and store its Keys in a secure environment. Its operation SHOULD be auditable.
+Component Verifiers should be made available suitable trust anchors so that they can establish required trust in the authority of the LV.
 
-3. The Composite Attester Evidence contains Component Attester Evidence, each having signature
-from the Attesting Environments that generated it. This ascertains the authenticity and integrity protection
-of individual Evidence exchanged between the Verifier. However there may be cases (for example UCCS), where the
-individual Evidence is not signed. In such scenarios, the Lead Verifier may add its own signature using a private key whose
-public key is known to the sub Verifiers.
+##### Communication Security (LV <-> CV)
 
-4. Evidence might contain sensitive or confidential information, there might be a need for
-confidentiality protection of the individual Evidence from Lead Verifier to sub Verifiers.
-The Lead Verifier may choose to Encrypt the individual Evidence using the public Key of the Verifier it communicates.
+**Threat:** Eavesdropping or manipulation of evidence/results in transit.
 
-If there isn't confidentiality protection of conceptual messages themselves,
-the underlying conveyance protocol should provide these protections.
+**Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and confidential (e.g., using TLS with client authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
+
+##### Evidence Integrity and Origin Authentication (LV -> CV)
+
+**Threat:** The LV could forward manipulated evidence to a CV, or an attacker could inject fake evidence.
+
+**Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester at origin, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the Component Evidence using a key that the CV trusts. This prevents any on-path attacker from altering the Component Evidence.
+
+##### Results Integrity and Origin Authentication (CV -> LV)
+
+**Threat:** Partial Attestation Results could be manipulated in transit or forged by a malicious CV.
+
+**Mitigation:** Each Partial Attestation Result MUST be digitally signed by the CV.
+ LV should maintain a list of trust anchors for the CV's it communicates with.
+The LV MUST validate the signature using the required trust anchor for the CV, before adding the Partial Attestation Results to the Aggregated Attestation Results.
+
+
+##### Replay Attacks
+
+**Threat:** An adversary Component Verifier replays old Evidence or Attestation Results.
+
+**Mitigation:** The LV is responsible for enforcing freshness (via nonces, epochs, or timestamps). This freshness value MUST be propagated to CVs and back to the LV, to ensure final AR can be validated against the original challenge.
 
 ### Cascaded Pattern
 
-In this pattern, the Composite Evidence is received by each Verifier in the chain. As a result,
-the Security and Privacy consideration of Evidence between the Attester/RP and each of the Verifier follows the guidance provided in RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
+The cascaded pattern distributes trust but requires each Verifier in the chain to be trusted to correctly handle and forward  Attestation messages. The chain's security is only as strong as its weakest link.
 
-Partial and Aggregated Attestation Results are exchanged among the Verifiers.
-It is TBD how the Security and Privacy of these messages can be ascertained.
-Few possible options are listed below.
 
-1. All the Verifiers in the Eco-System share a common Trust Anchor Store. The Sender Ensures the Confidentiality and Integrity of the Partial/Aggregated AAR. The receiver Verifies the Confidentiality of these messages using the Private Keys in its database. It Verifies the authenticity and integrity of these messages using the Trust Anchor Store Public Keys.
+#### Threats and Mitigations
 
-2. The Verfier always communicates with a known Verifier in the chain. Hence it only maintains the trust roots for its communicating Verifier.
+##### Verifier Compromise
 
-If there isn't confidentiality protection of conceptual messages themselves,
-the underlying conveyance protocol should provide these protections
+**Threat:** Any compromised Verifier in the chain can block, delay, or manipulate the attestation process. It can inject false partial results, drop evidence, or leak sensitive information.
 
-These and new options will be discussed further in the RATS Working Group.
+**Mitigation:** Relying Parties and Verifiers MUST be configured with strict trust policies defining the allowed paths and trusted Verifiers. Operations should be logged for auditability.
+
+##### Communication Security
+
+**Threat:** Eavesdropping or manipulation of evidence and results between Verifiers.
+
+**Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with client authentication).
+
+##### Evidence and Results Protection
+
+**Threat:** Lack of end-to-end security allows intermediate Verifiers to manipulate evidence or results that are not intended for them to appraise.
+
+**Mitigation:** End-to-end integrity protection is RECOMMENDED. The Composite Evidence should be signed by the Attester. Partial and Aggregated Attestation Results SHOULD be signed by the Verifier that generated them. This allows subsequent Verifiers and the Relying Party to verify that results have not been tampered with by intermediate nodes.
+
+##### Replay Attacks
+
+**Threat:** An adversary replays old Evidence or Attestation Results.
+
+**Mitigation:** The first Verifier in the chain (the one receiving evidence from the Attester/RP) is responsible for enforcing freshness (via nonces, epochs, or timestamps) for the entire cascade. This freshness value MUST be propagated with the Evidence and Results through the chain so the final AR can be validated against the original challenge.
+
+### Security of the Hybrid Pattern
+
+As the hybrid pattern is the composition of  hierarchical pattern and cascade pattern, all the threats and mitigations that are applicable for these two patterns are also applicable for the general hybrid pattern.
+
+
+
+# Privacy Considerations
+
+The appraisal of a Composite Attester requires exchange of attestation related messages, for example, partial Evidence and partial Attestation Results, among multiple Verifiers. This can potentially leak sensitive information about the Attester's configuration , identities and the nature of composition.
+
+- Minimization: Attesters should only generate Evidence that is strictly necessary for the appraisal policy. Verifiers should only request necessary claims.
+- Confidentiality: Encryption should be used to prevent unauthorized parties (including other Verifiers in the hierarchy or cascade) from accessing sensitive Evidence. This is crucial in multi-tenant environments.
+- Policy Handling: Verifiers should be careful not to leak their internal appraisal policies (e.g., through error messages or timing side channels) when communicating with other Verifiers or Attesters, as this information could be exploited by an attacker to manipulate appraisal.
 
 # IANA Considerations
 
