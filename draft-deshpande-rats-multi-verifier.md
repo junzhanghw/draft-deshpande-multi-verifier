@@ -335,6 +335,7 @@ The system is designed to be resilient under the assumption that the cryptograph
 
 All communications between entities (Attester-Verifier, Verifier-Verifier, Verifier-RP) MUST be secured using mutually authenticated, confidential, and integrity-protected channels (e.g., TLS).
 
+It is recommended that any two verifiers establishing a communication channel perform mutual attestation before exchanging  any attestation messages.
 
 ## Security for Topological Patterns
 
