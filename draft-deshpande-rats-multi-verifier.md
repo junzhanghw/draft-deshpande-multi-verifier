@@ -229,7 +229,8 @@ Otherwise it performs the following steps.
 * Lead Verifier has the required knowledge to break down the Composite Evidence into individual Component Evidence. It decodes the Composite Evidence to extract the Component Attester Evidence. This may lead to "N" Evidence, one for each Component Attester.
 
 * Lead Verifier delegates each Component Attester Evidence to its own Component Verifier (CV) and receives Component Attester Attestation Results also known as Partial Attestation Results after successful Appraisal of Evidence.
-A Verifier may have a hard coded configuration of Component Verifiers to route the CE, or it may have an apriori knowledge using a specific protocol to discover the Verifiers needed to appraise each CE.
+There are many protocols to determine how a Lead Verifier can select the Component Verifiers.
+This document does not mandate any specific protocol for determining the Component Verifiers
 Any specific protocol is out of scope for this specification.
 
 * Once the Lead Verifier receives Attestation Results from all the Verifiers, it combines the results from each Verifier to construct a Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
