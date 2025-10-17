@@ -294,8 +294,11 @@ The Verifier is effectively part of the Attesters' and Relying Parties' trusted 
 The security analysis in this section assumes that attackers may:
 
 1. Eavesdrop on any communication channel between Verifiers.
+
 2. Inject, modify, replay, or delay messages traversing the network.
+
 3. Compromise one or more Verifiers in the ecosystem, attempting to leak sensitive information (e.g., Evidence, Reference Values) or manipulate Attestation Results.
+
 4. Perform Man-in-the-Middle (MitM) attacks between any two communicating entities.
 
 The system is designed to be resilient under the assumption that the cryptographic keys used for signing Evidence and Attestation Results (by authentic entities) are not compromised.
@@ -323,6 +326,7 @@ Component Verifiers should be made available suitable trust anchors so that they
 ##### Communication Security (LV <-> CV)
 
 **Threat:** Eavesdropping or manipulation of evidence/results in transit.
+
 **Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and confidential (e.g., using TLS with client authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
 
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
@@ -336,8 +340,8 @@ Component Verifiers should be made available suitable trust anchors so that they
 **Threat:** Partial Attestation Results could be manipulated in transit or forged by a malicious CV.
 
 **Mitigation:** Each Partial Attestation Result MUST be digitally signed by the CV.
- LV should maintain a list of trust anchors for the CV's it communicates with. 
-The LV MUST validate the signature using the required trust anchor for the CV, before adding the Partial Attestation Results to the Aggregated Attestation Results. 
+ LV should maintain a list of trust anchors for the CV's it communicates with.
+The LV MUST validate the signature using the required trust anchor for the CV, before adding the Partial Attestation Results to the Aggregated Attestation Results.
 
 
 ##### Replay Attacks
