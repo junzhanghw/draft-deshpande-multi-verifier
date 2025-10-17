@@ -328,6 +328,7 @@ Component Verifiers should be made available suitable trust anchors so that they
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
 
 **Threat:** The LV could forward manipulated evidence to a CV, or an attacker could inject fake evidence.
+
 **Mitigation:** The conceptual message containing the Component Evidence MUST be integrity-protected and authenticated. If the Component Evidence is natively signed by the Component Attester at origin, the CV can verify it directly. If the Component Evidence lacks inherent signatures (e.g., in UCCS), the LV MUST sign the Component Evidence using a key that the CV trusts. This prevents any on-path attacker from altering the Component Evidence.
 
 ##### Results Integrity and Origin Authentication (CV -> LV)
