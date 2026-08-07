@@ -319,11 +319,6 @@ In the Cascaded Pattern, the freshness is always checked by the first Verifier i
 The Verifier is not part of the Attester’s Trusted Computing Base (TCB), but acts as a critical component in the Relying Party’s trust decision chain. Therefore, its security directly affects the reliability of the entire remote attestation process.  When multiple Verifiers coordinate to conduct an appraisal, this can increase the attack surface, depending on the system architecture and trust assumptions.
 Any mistake in the appraisal procedure conducted by one or more Verifiers could lead to severe security implications, such as incorrect Attestation Result of a component or a composition to the Relying party. This section details the security threats and mitigation strategies specific to the multi-verifier topologies described in this document. In addition to the considerations herein, Verifiers MUST follow the guidance detailed in the Security and Privacy considerations of a RATS Verifier as detailed in {{Section 11 of -corim}} and the RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
 
-### On the Use of Single-Verifier vs. Multi-Verifier Designs
-
-While this document specifies multi-verifier topologies, single-verifier remote attestation remains suitable for many use cases and is not inherently insecure. The main limitation of a single Verifier is that it represents a single point of trust; its compromise or misconfiguration can lead to incorrect attestation outcomes. However, in trusted environments with proper key management and secure channels, a single Verifier can provide adequate security with reduced operational complexity.
-
-Multi-verifier designs are intended for scenarios requiring distributed appraisal, such as heterogeneous environments, component-specific verification, or enhanced resilience against Verifier compromise. The choice between single- and multi-verifier architectures SHOULD be based on the specific security and operational requirements of the deployment.
 
 ## Adversarial Model
 The security analysis in this section assumes that attackers may:
