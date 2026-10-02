@@ -180,7 +180,7 @@ Partial Attestation Results:
 : Partial Attestation Results (PAR) are produced by a Component Verifier, and contain partial results from at least one or more Component Attesters.
 
 Aggregated Attestation Results:
-: Aggregated Attestation Results (AAR) refers to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
+: Aggregated Attestation Results (AAR) refer to a collection of Attestation Results produced upon completion of appraisal of a Composite Attester.
 
 # Multi Verifier topological patterns
 {: #sec-multi-verifier }
@@ -288,7 +288,7 @@ Partial Evidence from the Composite Evidence, performs Appraisal of the Componen
 The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. Verifier-N, completes its Appraisal of the Partial Evidence, that it can appraise. It has now all the Partial Attestation Results and creates the Aggregated Attestation Results (AAR). It returns
 the AAR to the N-1 Verifier (from where it received the Composite Evidence and Partial AR). The process is repeated, i.e. AAR is returned in the chain until the Verifier, which recieved the initial Composite Evidence is reached. At this point in time the Aggregated Attestation Results are signed and the AAR is sent to the Attester (in Passport Model) or Relying Party (in background check model).
 
-As shown in the picture, the Partial Attestation Results and Composite Evidence are transmitted to a chain of Verifier, till the Appraisal is complete.
+As shown in the picture, the Partial Attestation Results and Composite Evidence are transmitted to a chain of Verifiers, till the Appraisal is complete.
 Upon completion, the last Verifier in the chain combines the incoming Partial Attestation Results with the results from its own Evidence Appraisal, and passes the Aggregated Attestation Results to the Verifier from which it receives Composite Evidence.
 
 There are many protocols to determine how a Verifier can select the next Verifier to route the CE and PAR.
