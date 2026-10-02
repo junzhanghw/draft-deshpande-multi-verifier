@@ -294,7 +294,7 @@ Upon completion, the last Verifier in the chain combines the incoming Partial At
 There are many protocols to determine how a Verifier can select the next Verifier to route the CE and PAR.
 This document does not mandate any specific protocol for determining the Verifiers in cascade.
 
-## Trust Relationships
+### Trust Relationships
 
 ### Verifiers
 In the cascaded pattern, the communicating Verifiers fully trust each other. Each Verifier has the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the Partial Attestation Results received by a Verifier or a Aggregated Attestation Results (AAR) which it receives in the return path.
