@@ -65,14 +65,16 @@ informative:
 
 --- abstract
 
-IETF RATS Architecture, defines the key role of a Verifier.  In a complex system, this role needs to be performed by multiple Verifiers coordinating together to assess the full trustworthiness of an Attester. This document focuses on various topological patterns for a multiple Verifier system. It only covers the architectural aspects introduced by the Multi Verifier concept, which is neutral with regard to specific wire formats, encoding, transport mechanisms, or processing details.
+IETF RATS Architecture, defines the key role of a Verifier.
+In a complex system, this role needs to be performed by multiple Verifiers coordinating together to assess the full trustworthiness of an Attester.
+This document focuses on various topological patterns for a multiple Verifier system. It only covers the architectural aspects introduced by the Multi Verifier concept, which is neutral with regard to specific wire formats, encoding, transport mechanisms, or processing details.
 
 --- middle
 
 # Introduction
 
 A Verifier plays a central role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which are essentially a verdict of attestation. The results are consumed by the Relying Party to conclude the trustworthiness of the Attester, before making any critical decisions about the Attester, such as admitting it to the network or releasing confidential resources to it.
-Attesters can come in wide varieties of shapes and forms. For example, Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester {{sec-glossary}} generates Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate attesting environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted on the machine's GPU. Throughout this document we use the term Component Attester {{sec-glossary}} to address the sub-entity or an individual layer which produces its own Evidence in a Composite Attester system.
+Attesters can come in wide varieties of shapes and forms. For example, Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester {{sec-glossary}} generates Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate Attesting Environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted on the machine's GPU. Throughout this document we use the term Component Attester {{sec-glossary}} to address the single entity which produces its own Evidence in a Composite Attester system.
 
 In a Composite Attester system, it may not be possible for a single Verifier to possess all the capabilities or information required to conduct a complete appraisal of the Attester. Please refer to {{sec-need-multiverifier}} for motivation of this document. Multiple Verifiers need to collaborate to reach a conclusion on the appraisal and produce the Attestation Results.
 
@@ -86,16 +88,19 @@ To conduct the task of Evidence appraisal, a Verifier requires:
 2. Endorsements from trusted supply chain actors producing, certifying, or compliance checking Attesters (Endorsers)
 3. Appraisal Policy for Evidence, which is under the control of the Verifier Owner
 
-The Verifier inputs listed above are linked to the shape of the Attesters.
-Typically, Composite Attesters come with a varying degree of heterogeneity of Evidence formats, depending on the types of Attesting Environments that come with each Component Attester, for example, CPU variants or GPU/FPGA variants. When conducting Evidence appraisal for a Composite Attester, the following challenges remain:
+The Verifier inputs listed above largely vary dependent on the make and the model of the Attesters.
+
+Typically, Composite Attesters are complex systems comprising different types of components, potentially originating from multiple suppliers and integrated into a single system. Consequently, the Attestation Evidence produced by such a system may comprise a heterogeneous combination of Evidence, reflecting the different types of Attesting Environments associated with each Component Attester, such as CPU, GPU, or FPGA variants. When conducting Evidence appraisal for a Composite Attester, the following challenges remain:
 
 1. An Attester's composition can change over time based on market requirements and availability (e.g., a set of racks in a data center gets thousands of new FPGAs).
 It is highly unlikely that there is always one appropriate Verifier that satisfies all the requirements that a complex and changing Composite Attesters impose.
 It may not be economically viable to build and maintain such a degree of complexity in a single Verifier.
 2. A Verifier Owner may have an Appraisal Policy for Evidence of a Component Attester that is internal to them and which they may choose not to reveal to a “monolithic" Verifier.
 3. A Reference Values Provider may not wish to reveal its Reference Values or their lifecycle to a monolithic Verifier.
-4. There may not be a single actor in the ecosystem that can stand up and take ownership of verifying every Component Attester due to a lack of knowledge, complexity, regulations or associated cost.
-5. The mix today is a combination of Verifier services provided by component manufacturers, Verifiers provided by integrators, and Verifiers under local authority (i.e., close to the attester). Rarely is it just one of these.
+
+As a consequence, there may not be a single actor in the ecosystem that can stand up and take ownership of verifying every Component Attester due to a lack of knowledge, complexity, regulations or associated cost.
+
+The mix today is a combination of Verifier services provided by component manufacturers, Verifiers provided by integrators, and Verifiers under local authority (i.e., close to the attester). Rarely is it just one of these.
 
 
 # Reference Use Cases
@@ -141,7 +146,7 @@ Relying Party: An entity which is making trust decisions, such as a key release 
 
 This document uses terms and concepts defined by the RATS architecture. For a complete glossary, see {{Section 4 of -rats-arch}}.
 
-Specifically this document heavily uses the terms Layered Attester {{Section 3.2 of -rats-arch}} and Composite Device {{Section 3.3 of -rats-arch}}
+Specifically this document heavily uses the terms Attesting Environment {{Section 3.1 of -rats-arch}},  Layered Attester {{Section 3.2 of -rats-arch}} and Composite Device {{Section 3.3 of -rats-arch}}
 
 ## Glossary
 {: #sec-glossary }
@@ -154,7 +159,7 @@ Composite Attester:
 
 Component Attester:
 
-: A Component Attester is a single Attester of a Composite Attester.
+: A Component Attester is a single Attester of a Composite Attester. For example, it can be a sub-entity {{Section 3.3 of -rats-arch}} or a layer {{Section 3.2 of -rats-arch}} within a composition.
 For this document, a Component Attester is an entity which produces a single Evidence which can be appraised by a Component Verifier.
 
 Composite Evidence:
@@ -432,7 +437,11 @@ Nonetheless, such benefits depend on strong implementation practices.
 {:numbered="false"}
 
 The authors would like to thank
-Simon Frost
-and
-Usama Sardar
+Simon Frost,
+Usama Sardar,
+Paul Howard,
+Mark Novak,
+Michael Richardson,
+&
+Yaron Sheffer
 for their reviews and suggestions.
