@@ -213,7 +213,7 @@ Legend:
 - AAR: Aggregated Attestation Results
 - PE_i: Partial Evidence of i-th Component Attester
 - PAR_i: Partial Attestation Results of i-th Component Attester
-- CV: Componet Verifier
+- CV: Component Verifier
 ~~~
 {: #fig-h-pattern title="Hierarchical Pattern"}
 
@@ -225,7 +225,7 @@ In this topological pattern, there is an Entity known as Lead Verifier.
 
 Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model).
 It receives Attestation Evidence from a Composite Attester.
-If the Composite Attestation Evidence is signed, then it must validates the integrity of the Evidence by validating the signature.
+If the Composite Attestation Evidence is signed, then it must validate the integrity of the Evidence by validating the signature.
 If signature verification fails, the Verification is terminated.
 Otherwise it performs the following steps.
 
@@ -277,7 +277,7 @@ Legend:
 - CE: Composite Evidence
 - AAR: Aggregated Attestation Results
 - PAR: Partial Attestation Results
-- CV: Componet Verifier
+- CV: Component Verifier
 ~~~
 {: #fig-c-pattern title="Cascaded Pattern"}
 
