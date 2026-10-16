@@ -319,7 +319,7 @@ In a particular deployment, there is a possibility that the two models presented
   '---------------'       '-----------------'     '-----------------'
                                                         ^    ^
                                                         |    |
-                                        +---------------+    |
+                                        .---------------'    |
                                         |                    |
                                         v                    v
                            .-----------------.     .-----------------.
@@ -327,7 +327,7 @@ In a particular deployment, there is a possibility that the two models presented
                            '-----------------'     '-----------------'
 Legend:
 - LV: Lead Verifier
-- Verifier 3..N : Component Verifiers
+- Verifier 1..N : Component Verifiers
 
 ~~~
 {: #fig-hybrid-pattern title="Hybrid Pattern"}
