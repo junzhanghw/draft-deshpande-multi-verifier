@@ -317,17 +317,17 @@ In a particular deployment, there is a possibility that the two models presented
   .---------------.       .-----------------.     .-----------------.
   |  Attester/RP  | <---> |   Verifier 1    |<--->| Verifier 2 / LV |
   '---------------'       '-----------------'     '-----------------'    
-                                                        ^  ^  ^
-                                                        |  |  |     
-                                        +---------------+  |   +---------------+
-                                        |                  |                   |    
-                                        v                  v                   v
-                           .-----------------.     .-----------------.     .-----------------.                                        
-                           |   Verifier 3    |     |    Verifier i   |     |    Verifier N   |   
-                           '-----------------'     '-----------------'     '-----------------'
+                                                        ^    ^
+                                                        |    |     
+                                        +---------------+    | 
+                                        |                    |    
+                                        v                    v                   
+                           .-----------------.     .-----------------.                                            
+                           |   Verifier 3    |     |    Verifier N   |       
+                           '-----------------'     '-----------------' 
 Legend:
 - LV: Lead Verifier
-- Verifier 3..n : Component Verifiers 
+- Verifier 3..N : Component Verifiers 
 
 ~~~
 {: #fig-hybrid-pattern title=" An illustration of Hybrid Pattern"}
