@@ -309,21 +309,25 @@ In the cascaded pattern, the RP may communicate with any Verifier and thus recei
 
 ## Hybrid Pattern
 
-In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. For example Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
+In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. Note that there are many ways to combine the two models. The figure below illustrates an example where Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
 
 
  ~~~ aasvg                                                                       
                                             
-  .---------------.       .------------.     .------------.     .------------.     .------------.
-  |  Attester/RP  | <---> | Verifier 1 |<--->| Verifier 2 |<--->| Verifier i |<--->| Verifier n |   
-  '---------------'       '------------'     '------------'     '------------'     '------------'
-                                                |  ^   |     
-                                +---------------+  |   +---------------+
-                                |                  |                   |    
-                                v                  v                   v
-                       .--------------.     .--------------.     .--------------.                                        
-                       |  Verifier j  |     | Verifier j+1 |     | Verifier j+m |   
-                       '--------------'     '--------------'     '--------------'
+  .---------------.       .-----------------.     .-----------------.
+  |  Attester/RP  | <---> |   Verifier 1    |<--->| Verifier 2 / LV |
+  '---------------'       '-----------------'     '-----------------'    
+                                                        ^  ^  ^
+                                                        |  |  |     
+                                        +---------------+  |   +---------------+
+                                        |                  |                   |    
+                                        v                  v                   v
+                           .-----------------.     .-----------------.     .-----------------.                                        
+                           |   Verifier 3    |     |    Verifier i   |     |    Verifier N   |   
+                           '-----------------'     '-----------------'     '-----------------'
+Legend:
+- LV: Lead Verifier
+- Verifier 3..n : Component Verifiers 
 
 ~~~
 {: #fig-hybrid-pattern title=" An illustration of Hybrid Pattern"}
