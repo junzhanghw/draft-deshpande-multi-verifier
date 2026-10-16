@@ -195,7 +195,7 @@ A Composite Attester has multiple Component Attesters. Each Attester requires a 
 ## Hierarchical Pattern {#sec-lead-verifier}
 Figure below shows the block diagram of a Hierarchical Pattern.
 
-~~~ aasvg
+~~~aasvg
                                  PE_1               .------------.
                                .------------------->|            |
                                |                    | Verifier 1 |
@@ -263,7 +263,7 @@ Lead Verifier is provisioned with the Trust Anchors (see {{-trust-anchors}}) for
 
 Figure below shows the block diagram of a Cascaded Pattern.
 
-~~~ aasvg
+~~~aasvg
                         .-----.            .-----.               .-----.
                         |  V  |            |  V  |               |  V  |
                         |  e  |            |  e  |               |  e  |
@@ -309,7 +309,28 @@ In the cascaded pattern, the RP may communicate with any Verifier and thus recei
 
 ## Hybrid Pattern
 
-In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. For example Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
+In a particular deployment, there is a possibility that the two models presented above can be combined to produce a hybrid pattern. Note that there are many ways to combine the two models. The figure below illustrates an example where Verifier 2 in the Cascaded Pattern becomes the Lead Verifier for the remaining Verifers from 3, to N.
+
+
+~~~aasvg
+
+  .---------------.       .-----------------.     .-----------------.
+  |  Attester/RP  | <---> |   Verifier 1    |<--->| Verifier 2 / LV |
+  '---------------'       '-----------------'     '-----------------'
+                                                        ^    ^
+                                                        |    |
+                                        .---------------'    |
+                                        |                    |
+                                        v                    v
+                           .-----------------.     .-----------------.
+                           |   Verifier 3    | ... |    Verifier N   |
+                           '-----------------'     '-----------------'
+Legend:
+- LV: Lead Verifier
+- Verifier 1..N : Component Verifiers
+
+~~~
+{: #fig-hybrid-pattern title="Hybrid Pattern"}
 
 # Freshness
 The Verifier needs to ensure that the claims included in the Evidence reflect the latest state of the Attester. As per RATS Architecture, the recommended freshness is ascertained using either Synchronised Clocks, Epoch IDs, or nonce, embedded in the Evidence.
