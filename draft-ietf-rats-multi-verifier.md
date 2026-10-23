@@ -299,10 +299,10 @@ This document does not mandate any specific protocol for determining the Verifie
 ### Trust Relationships
 
 ### Verifiers
-In the cascaded pattern, the communicating Verifiers may trust each other. Each Verifier may have the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the Partial Attestation Results received by a Verifier or an Aggregated Attestation Results (AAR) which it receives in the return path.
+In the cascaded pattern, the communicating Verifiers must trust each other. Each Verifier  should have the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the Partial Attestation Results received by a Verifier or an Aggregated Attestation Results (AAR) which it receives in the return path.
 
 ### Relying Party and Verifiers
-In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP may trust all the Verifiers (in a Distributed Trust Model) or only trust the Initial Verifier (in a Delegated Trust Model).
+In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP  must trust all the Verifiers (in a Distributed Trust Model) or only trust the Initial Verifier (in a Delegated Trust Model).
 
 ## Hybrid Pattern
 
