@@ -232,7 +232,7 @@ Otherwise it performs the following steps.
 * Lead Verifier has the required knowledge to break down the Composite Evidence into Partial Evidence. It decodes the Composite Evidence to extract the Component Attesters Evidence. This may lead to "N" Partial Evidence, one for each Component Attester.
 
 * Lead Verifier delegates each Partial Evidence to its own Component Verifier (CV) and receives signed Component Attester Attestation Results also known as Partial Attestation Results after successful Appraisal of Evidence.
-There are many protocols to determine how a Lead Verifier can select the Component Verifiers (e.g., pre-configured priority lists or discovery protocols)..
+There are many protocols to determine how a Lead Verifier can select the Component Verifiers (e.g., static configuration or a discovery protocol).
 This document does not mandate any specific protocol for determining the Component Verifiers.
 
 * Once the Lead Verifier receives Partial Attestation Results from all the Verifiers, it combines the results from each Verifier to construct Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
@@ -284,7 +284,7 @@ Legend:
 In this topological pattern, the Attestation Verification happens in sequence. Verifiers are cascaded to perform the Attestation Appraisal.
 Each Verifier in the chain has the knowledge to derive or extract the Partial Evidence, which it can appraise, from the Composite Evidence.
 
-Attester may send the Composite Evidence (CE) to any of the Verifiers (directly in the passport model, or indirectly via the Relying Party in the background-check model). The Verifier which processes the Composite Evidence, acts as the Initial Verifier CV1 and verifies the signature on the Evidence, if present. It extracts the
+Attester may send the Composite Evidence (CE) to any of the Verifiers (directly in the passport model, or indirectly via the Relying Party in the background-check model). The Verifier which processes the Composite Evidence, acts as the first Verifier CV1 and verifies the signature on the Evidence, if present. It extracts the
 Partial Evidence from the Composite Evidence, performs Appraisal of the Component Attester whose Reference Values and Endorsements are in its database. Once the appraisal is complete, it forwards the Composite Evidence and signed Partial Attestation Results to the subsequent Verifier.
 
 The process is repeated, until the entire appraisal is complete. The last Verifier, i.e. CV-N, completes its Appraisal of the Partial Evidence, that it can appraise. It has now all the signed Partial Attestation Results and creates the Aggregated Attestation Results (AAR),  which is a collection of all signed PARs. To ensure the integrity of the collection, CV-N signs the AAR. It returns
@@ -293,7 +293,7 @@ the AAR to the N-1 Verifier (from where it received the Composite Evidence and P
 As shown in the picture, the Partial Attestation Results and Composite Evidence are transmitted to a chain of Verifiers, till the Appraisal is complete.
 Upon completion, the last Verifier in the chain combines the incoming Partial Attestation Results with the results from its own Evidence Appraisal, and passes the Aggregated Attestation Results to the Verifier from which it receives Composite Evidence.
 
-There are many protocols to determine how a Verifier can select the next Verifier to route the CE and PAR (e.g., pre-configured priority lists or discovery based on Component IDs).
+There are many protocols to determine how a Verifier can select the next Verifier to route the CE and PAR (e.g., (e.g., static configuration or a discovery protocol).
 This document does not mandate any specific protocol for determining the Verifiers in cascade.
 
 ### Trust Relationships
@@ -302,7 +302,7 @@ This document does not mandate any specific protocol for determining the Verifie
 In the cascaded pattern, the communicating Verifiers must trust each other. Each Verifier  should have the trust anchor for the Verifier it is communicating to (i.e. either sending information or receiving information). This prevents man in the middle attack for the Partial Attestation Results received by a Verifier or an Aggregated Attestation Results (AAR) which it receives in the return path.
 
 ### Relying Party and Verifiers
-In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP  must trust all the Verifiers (in a Distributed Trust Model) or only trust the Initial Verifier (in a Delegated Trust Model).
+In the cascaded pattern, the RP may communicate with any Verifier and thus receive its Attestation Results. Hence RP  must trust all the Verifiers (in a Distributed Trust Model) or only trust the  first Verifier (in a Delegated Trust Model).
 
 ## Hybrid Pattern
 
