@@ -84,7 +84,7 @@ This document describes three topological patterns of multiple Verifiers that wo
 {: #sec-need-multiverifier }
 To conduct the task of Evidence appraisal, a Verifier requires:
 
-1. Reference Values from trusted supply chain actors, known as Reference Value Providers ({{-rats-arch}}), producing, aggregating, or administering Attester
+1. Reference Values from trusted supply chain actors, known as Reference Value Providers ({{-rats-arch}}), producing, aggregating, or administering Attesters
 2. Endorsements from trusted supply chain actors, known as Endorsers ({{-rats-arch}}), producing, certifying, or compliance checking Attesters
 3. Appraisal Policy for Evidence, which is under the control of the Verifier Owner
 
