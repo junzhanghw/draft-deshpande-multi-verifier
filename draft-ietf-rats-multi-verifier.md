@@ -73,10 +73,10 @@ This document focuses on various topological patterns for a multiple Verifier sy
 
 # Introduction
 
-A Verifier plays a central role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which are essentially a verdict of attestation. The results are consumed by the Relying Party to evaluate the trustworthiness of the Attester, before making any critical decisions about the Attester, such as admitting it to the network or releasing confidential resources to it.
-Attesters can come in a wide variety of shapes and forms. For example, Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester ({{sec-glossary}}) generates Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate Attesting Environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was booted on the main CPU, while another AE might measure and attest to what was booted on the machine's GPU. Throughout this document we use the term Component Attester ({{sec-glossary}}) to address the single entity which produces its own Evidence in a Composite Attester system.
+A Verifier plays a central role in any Remote Attestation System. A Verifier appraises the Attester and produces Attestation Results, which are essentially a verdict of attestation. The results are consumed by the Relying Party to decide the trustworthiness of the Attester, before making any critical decisions about the Attester, such as admitting it to the network or releasing confidential resources to it.
+Attesters can come in a wide variety of shapes and forms. For example, Attesters can be endpoints (edge or IoT devices) or complex machines in the cloud. Composite Attester ({{sec-glossary}}) generates Evidence that consists of multiple parts. For example, in data center servers, it is not uncommon for separate Attesting Environments (AE) to serve a subsection of the entire machine. One AE might measure and attest to what was started on the main CPU, while another AE might measure and attest to what was started on the machine's GPU. Throughout this document we use the term Component Attester ({{sec-glossary}}) to address the single entity which produces its own Evidence in a Composite Attester system.
 
-In a Composite Attester system, it may not be possible for a single Verifier to possess all the capabilities or information required to conduct a complete appraisal of the Attester. Multiple Verifiers need to collaborate to reach a conclusion on the appraisal and produce the Attestation Results.
+In a Composite Attester system, it may not be possible for a single Verifier to possess all the capabilities or information required to conduct a complete appraisal of the Attester. Refer to ({{sec-need-multiverifier}}) for motivation of this document. Multiple Verifiers need to collaborate to reach a conclusion on the appraisal and produce the Attestation Results.
 
 This document describes three topological patterns of multiple Verifiers that work in a coordinated manner to conduct appraisal of a Composite Attester to produce Attestation Results.
 
@@ -109,7 +109,7 @@ Its purpose is to motivate various aspects of the architecture presented in this
 There are many other use cases; this document does not contain a complete list.
 
 ## Verification of Devices containing heterogenous components
-A device may contain a Central Processing Unit (CPU), as well as heterogeneous acceleration components (such as GPUs, NPUs and TPUs) from different suppliers.
+A device may contain a Central Processing Unit (CPU), as well as heterogeneous acceleration components such as Graphical Processing Units (GPUs), Neural Processing Units (NPUs) and Tensor Processing Units (TPUs) from different suppliers.
 
 These components can be used to speed up processing or assist with AI inference.
 Trustworthiness assessment of the device requires trust in all of these components.
@@ -169,7 +169,7 @@ Also referred to as CE in the document.
 
 Partial Evidence:
 
-: It is an extract from a Composite Evidence. It consists of at least one or more Component Evidence.
+: Extract from a Composite Evidence. It consists of at least one or more Component Evidence.
 Also referred to as PE in the document.
 
 Lead Verifier:
@@ -227,7 +227,7 @@ The following sub-sections describe the various roles that exist in this pattern
 
 In this topological pattern, there is an Entity known as Lead Verifier.
 
-Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model, ({{-rats-arch}}).
+Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model, ({{-rats-arch}})).
 It receives Attestation Evidence from a Composite Attester.
 If the Composite Attestation Evidence is signed, then it validates the integrity of the Evidence by validating the signature.
 If signature verification fails, the Verification is terminated.
@@ -254,14 +254,14 @@ The role of a Component Verifier is to receive Partial Evidence from the Lead Ve
 ### Trust Relationships
 
 In this topology the Lead Verifier is fully trusted by Component Verifiers (example Verifier 1).
-Each Component Verifiers are provisioned with the Trust Anchors (see {{-trust-anchors}}) for the Lead Verifier.
+Component Verifiers are provisioned with the Trust Anchors (see {{-trust-anchors}}) for the Lead Verifier.
 
 Also, each of the Component Verifier is fully trusted by the Lead Verifier.
 Lead Verifier is provisioned with the Trust Anchors (see {{-trust-anchors}}) for Verifier 1..N.
 
 ## Cascaded Pattern {#sec-verifier-cascade}
 
-Figure below shows the block diagram of a Cascaded Pattern.
+The figure below shows the block diagram of a Cascaded Pattern.
 
 ~~~ aasvg
                         .-----.            .-----.               .-----.
@@ -321,7 +321,7 @@ In the Cascaded Pattern, the freshness is always checked by the first Verifier i
 
 The Verifier is not part of the Attester’s Trusted Computing Base (TCB), but acts as a critical component in the Relying Party’s trust decision chain. Therefore, its security directly affects the trustworthiness of the entire remote attestation process.  When multiple Verifiers coordinate to conduct an appraisal, this may increase the attack surface, depending on the system architecture and trust assumptions.
 
-Any mistake in the appraisal procedure conducted by one or more Verifiers could lead to severe security implications, such as incorrect Attestation Results of a component or a composition to the Relying party. This section details the security threats and mitigation strategies specific to the multi-verifier topologies described in this document. In addition to the considerations herein, Verifiers MUST follow the guidance detailed in the Security and Privacy considerations of a RATS Verifier as detailed in {{Section 11 of -corim}} and the RATS Architecture {{Section 11 and Section 12 of -rats-arch}}.
+Any mistake in the appraisal procedure conducted by one or more Verifiers could lead to severe security implications, such as incorrect Attestation Results of a component or a composition to the Relying party. This section details the security threats and mitigation strategies specific to the multi-verifier topologies described in this document. In addition to the considerations herein, Verifiers MUST follow the guidance detailed in the Security and Privacy considerations of a RATS Verifier as detailed in ({{Section 11 of -corim}}) and the RATS Architecture ({{Section 11 and Section 12 of -rats-arch}}).
 
 ## Adversarial Model
 The security analysis in this section assumes that attackers may:
