@@ -378,13 +378,13 @@ The hierarchical pattern introduces a central trust entity, the Lead Verifier (L
 **Threat:** A compromised LV can orchestrate attacks, such as approving malicious attestations, wrongly aggregating attestation results or leaking sensitive evidence. This is a single point of failure from the trust perspective.
 
 **Mitigation:** The LV MUST be hardened and operate and store its Keys in a secure environment. Its operation SHOULD be auditable.
-Component Verifiers should have suitable trust anchors so that they can establish required trust in the authority of the LV.
+Component Verifiers are provisioned with the Trust Anchors (see {{-trust-anchors}}) for the Lead Verifier so that they can establish required trust in the authority of the LV.
 
 ##### Communication Security (LV <-> CV)
 
 **Threat:** Eavesdropping or manipulation of evidence/results in transit.
 
-**Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and confidential (e.g., using TLS with client authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
+**Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and confidential (e.g., using TLS with mutual authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
 
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
 
@@ -422,7 +422,7 @@ The cascaded pattern distributes trust but requires each Verifier in the chain t
 
 **Threat:** Eavesdropping or manipulation of evidence and results between Verifiers.
 
-**Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with client authentication).
+**Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with mutual authentication).
 
 ##### Evidence and Results Protection
 
