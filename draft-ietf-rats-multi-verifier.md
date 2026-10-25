@@ -226,17 +226,26 @@ The following sub-sections describe the various roles that exist in this pattern
 
 ### Lead Verifier
 
-In this topological pattern, there is an Entity known as Lead Verifier.
+In this topological pattern, there is an Entity known as Lead Verifier (LV).
 
 Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model, ({{-rats-arch}})).
 It receives Attestation Evidence from a Composite Attester.
-If the Composite Attestation Evidence is signed, then it must validate the integrity of the Evidence by validating the signature.
+
+#### Integrity of Composite Evidence
+The Lead Verifier must verify the integrity of the Composite Evidence.
+There are many ways to integrity protect the Composite Evidence, as given below.
+
+1. If the Composite Attestation Evidence is signed, LV must verify the integrity of the Evidence by validating the signature.
 If signature verification fails, the Verification is terminated.
-Otherwise it performs the following steps.
+
+2. If the Composite Attestation Evidence is not signed but each Component Evidence, is signed and there is a cryptographic binding to link the individual components, then the LV must verify the binding.
+If the cryptographic binding fails, the Verification is terminated.
+
+Otherwise LV performs the following steps.
 
 * Lead Verifier has the required knowledge to break down the Composite Evidence into Partial Evidence. It decodes the Composite Evidence to extract the Component Attesters' Evidence. This may lead to "N" Partial Evidence, one for each Component Attester.
 
-* Lead Verifier delegates each Partial Evidence to its own Component Verifier (CV) and receives signed Component Attester Attestation Results also known as Partial Attestation Results after successful Appraisal of Evidence.
+* The Lead Verfier relays each Partial Evidence (PE) to its own Component Verifier (CV). In certain topologies, it is possible that the PE is not protected. In such cases, the Lead verifier must wrap the Partial Evidence (example PE_1) in a signed Conceptual Message Wrapper (CMW), and then send it to its Component Verifier (example CV 1). Upon successful appraisal of Evidence by the CV, it receives signed Component Attester Attestation Results also known as Partial Attestation Results.
 There are many protocols to determine how a Lead Verifier can select the Component Verifiers (e.g., static configuration or a discovery protocol).
 This document does not mandate any specific protocol for determining the Component Verifiers.
 
@@ -245,8 +254,6 @@ This document does not mandate any specific protocol for determining the Compone
 * Lead Verifier signs the final AAR and conveys it to the Attester (in Passport model) or to the Relying Party (in background check model).
 
 The overall verdict may be dependent on the Appraisal Policy of the Lead Verifier.
-
-In certain topologies, it is possible that only the Composite Evidence is signed to provide the overall integrity, while the Partial Evidence (example PE_1) is not protected. In such cases, the Lead Verifier upon processing of Composite Evidence must wrap the Partial Evidence (example PE_1) in a signed Conceptual Message Wrapper (CMW), and send it to each Component Verifier (example CV 1).
 
 ### Component Verifier
 
