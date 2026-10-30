@@ -299,7 +299,7 @@ As shown in the picture, the Partial Attestation Results and Composite Evidence 
 Upon completion, the last Verifier in the chain combines the incoming Partial Attestation Results with the results from its own Evidence Appraisal, and passes the Aggregated Attestation Results to the Verifier from which it receives Composite Evidence. The visibility of evidence within this pattern is subject to the privacy policies described in {{sec-privacy}}.
 
 There are many protocols to determine how a Verifier can select the next Verifier to route the CE and PAR (e.g., (e.g., static configuration or a discovery protocol).
-
+Verifier discovery is out of scope for this specification.
 
 ### Trust Relationships
 
