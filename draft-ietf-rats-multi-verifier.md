@@ -377,7 +377,8 @@ The hierarchical pattern introduces a central trust entity, the Lead Verifier (L
 **Threat:** A compromised LV can orchestrate attacks, such as approving malicious attestations, wrongly aggregating attestation results or leaking sensitive evidence. This is a single point of failure from the trust perspective.
 
 **Mitigation:** The LV MUST be hardened and operate and store its Keys in a secure environment. Its operation SHOULD be auditable.
-Component Verifiers should have suitable trust anchors so that they can establish required trust in the authority of the LV.
+Component Verifiers (CVs) should have suitable trust anchors so that they can establish required trust in the authority of the LV.
+CVs should verify the signature of the PE to prevent LV manipulated evidence from being appraised.
 The AAR MUST contain the signed PARs from each Component Verifier, allowing the Relying Party to verify that the aggregated result is consistent with the individual component appraisals.
 CVs should verify the origin signature of the PE to prevent manipulated evidence from being appraised.
 
