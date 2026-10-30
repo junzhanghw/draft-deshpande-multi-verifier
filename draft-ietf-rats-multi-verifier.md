@@ -238,7 +238,7 @@ Otherwise it performs the following steps.
 
 * Lead Verifier delegates each Partial Evidence to its own Component Verifier (CV) and receives signed Component Attester Attestation Results also known as Partial Attestation Results after successful Appraisal of Evidence.
 There are many protocols to determine how a Lead Verifier can select the Component Verifiers (e.g., static configuration or a discovery protocol).
-
+Verifier discovery is out of scope for this specification.
 
 * Once the Lead Verifier receives Partial Attestation Results from all the Verifiers, it combines the results from each Verifier to construct Aggregated Attestation Results (AAR). The Lead verifier may apply its own policies and also add extra claims as part of its appraisal.
 
