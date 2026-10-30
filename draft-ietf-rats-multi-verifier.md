@@ -410,7 +410,7 @@ The LV MUST validate the signature using the required trust anchor for the CV, b
 
 **Threat:** An adversary Component Verifier replays old Evidence or Attestation Results.
 
-**Mitigation:**  Freshness is enforced based on the selected mechanism described in {{sec-freshness}}. In a centralized model (e.g., using nonces), the LV coordinates the freshness challenge by propagating the value to CVs and verifying it in the final results. In a decentralized model (e.g., using epochs or timestamps), each CV independently validates the freshness of the Partial Evidence it appraises. This ensures that the final Aggregated Attestation Results reflect the current state of all components.
+**Mitigation:**  Freshness is enforced based on the selected mechanism described in {{sec-freshness}}.
 
 ### Cascaded Pattern
 
@@ -440,7 +440,7 @@ The cascaded pattern distributes trust but requires each Verifier in the chain t
 
 **Threat:** An adversary replays old Evidence or Attestation Results.
 
-**Mitigation:** Freshness is enforced in accordance with the mechanisms described in {{sec-freshness}}. For nonce-based challenges, the first Verifier in the chain typically coordinates the freshness by propagating the nonce through the cascade and verifying it in the returning AAR. However, for clock or epoch-based mechanisms, each Verifier in the chain can independently validate the freshness of the specific component it appraises. This ensures that the final AAR is fresh and that no intermediate Verifier can successfully replay outdated Evidence or Results.
+**Mitigation:** Freshness is enforced in accordance with the mechanisms described in {{sec-freshness}}.
 
 ### Security of the Hybrid Pattern
 
