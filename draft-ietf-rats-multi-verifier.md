@@ -231,7 +231,7 @@ In this topological pattern, there is an Entity known as Lead Verifier (LV).
 Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model, ({{-rats-arch}})).
 It receives Attestation Evidence from a Composite Attester.
 
-#### Integrity of Composite Evidence
+#### Integrity Verification of Composite Evidence
 The Lead Verifier must verify the integrity of the Composite Evidence.
 There are many ways to integrity protect the Composite Evidence, as given below.
 
