@@ -226,17 +226,26 @@ The following sub-sections describe the various roles that exist in this pattern
 
 ### Lead Verifier
 
-In this topological pattern, there is an Entity known as Lead Verifier.
+In this topological pattern, there is an Entity known as Lead Verifier (LV).
 
 Lead Verifier is the central entity in communication with the Attester (directly in passport model or indirectly via the Relying Party in background-check model, ({{-rats-arch}})).
 It receives Attestation Evidence from a Composite Attester.
-If the Composite Attestation Evidence is signed, then it must validate the integrity of the Evidence by validating the signature.
+
+#### Integrity Verification of Composite Evidence
+The Lead Verifier must verify the integrity of the Composite Evidence.
+There are many ways to integrity protect the Composite Evidence, as given below.
+
+1. If the Composite Attestation Evidence is signed, LV must verify the integrity of the Evidence by validating the signature.
 If signature verification fails, the Verification is terminated.
-Otherwise it performs the following steps.
+
+2. If the Composite Attestation Evidence is not signed but each Component Evidence, is signed and there is a cryptographic binding to link the individual components, then the LV must verify the binding.
+If the cryptographic binding fails, the Verification is terminated.
+
+Otherwise LV performs the following steps.
 
 * Lead Verifier has the required knowledge to break down the Composite Evidence into Partial Evidence. It decodes the Composite Evidence to extract the Component Attesters' Evidence. This may lead to "N" Partial Evidence, one for each Component Attester.
 
-* Lead Verifier delegates each Partial Evidence to its own Component Verifier (CV) and receives signed Component Attester Attestation Results also known as Partial Attestation Results after successful Appraisal of Evidence.
+* The Lead Verfier relays each Partial Evidence (PE) to its own Component Verifier (CV). In certain topologies, it is possible that the PE is not protected. In such cases, the Lead verifier must wrap the Partial Evidence (example PE_1) in a signed Conceptual Message Wrapper (CMW), and then send it to its Component Verifier (example CV 1). Upon successful appraisal of Evidence by the CV, it receives signed Component Attester Attestation Results also known as Partial Attestation Results.
 There are many protocols to determine how a Lead Verifier can select the Component Verifiers (e.g., static configuration or a discovery protocol).
 Verifier discovery is out of scope for this specification.
 
@@ -245,8 +254,6 @@ Verifier discovery is out of scope for this specification.
 * Lead Verifier signs the final AAR and conveys it to the Attester (in Passport model) or to the Relying Party (in background check model).
 
 The overall verdict may be dependent on the Appraisal Policy of the Lead Verifier.
-
-In certain topologies, it is possible that only the Composite Evidence is signed to provide the overall integrity, while the Partial Evidence (example PE_1) is not protected. In such cases, the Lead Verifier upon processing of Composite Evidence must wrap the Partial Evidence (example PE_1) in a signed Conceptual Message Wrapper (CMW), and send it to each Component Verifier (example CV 1). 
 
 ### Component Verifier
 
@@ -377,15 +384,13 @@ The hierarchical pattern introduces a central trust entity, the Lead Verifier (L
 **Threat:** A compromised LV can orchestrate attacks, such as approving malicious attestations, wrongly aggregating attestation results or leaking sensitive evidence. This is a single point of failure from the trust perspective.
 
 **Mitigation:** The LV MUST be hardened and operate and store its Keys in a secure environment. Its operation SHOULD be auditable.
-Component Verifiers (CVs) should have suitable trust anchors so that they can establish required trust in the authority of the LV.
-CVs should verify the signature of the PE to prevent LV manipulated evidence from being appraised.
-The AAR may contain the signed PARs from each Component Verifier, allowing the Relying Party to verify that the aggregated result is consistent with the individual component appraisals.
+Component Verifiers are provisioned with the Trust Anchors (see {{-trust-anchors}}) for the Lead Verifier so that they can establish required trust in the authority of the LV.
 
 ##### Communication Security (LV <-> CV)
 
 **Threat:** Eavesdropping or manipulation of evidence/results in transit.
 
-**Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and conducted over encrypted channels (e.g., using TLS with client authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
+**Mitigation:** All communications between the LV and CVs MUST be mutually authenticated and confidential (e.g., using TLS with mutual authentication). This ensures integrity, confidentiality, and authenticity of the messages exchanged between the Verifiers.
 
 ##### Evidence Integrity and Origin Authentication (LV -> CV)
 
@@ -423,7 +428,7 @@ The cascaded pattern distributes trust but requires each Verifier in the chain t
 
 **Threat:** Eavesdropping or manipulation of evidence and results between Verifiers.
 
-**Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with client authentication).
+**Mitigation:** Each hop between Verifiers MUST be secured with mutually authenticated and confidential channels (e.g., TLS with mutual authentication).
 
 ##### Evidence and Results Protection
 
